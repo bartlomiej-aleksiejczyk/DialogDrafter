@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'node:path'
+import * as fs from "fs";
 
 // The built directory structure
 //
@@ -56,5 +57,35 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+ipcMain.on("saveChatLog", (sender, data) =>{
+  console.log(data)
+  const sData = JSON.stringify(data)
+  fs.writeFileSync("data.json", sData)
+  console.log("Data saved")
+})
+
+ipcMain.on("loadFile", (event) => {
+  const filePath = path.join(__dirname, "../data.json"); // replace with your file path
+  fs.readFile(filePath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error("An error occurred reading the file:", err);
+      return;
+    }
+    event.sender.send("fileData", data);
+  });
+});
+
+ipcMain.on("loadFilenames", (event, directoryPath) => {
+  //const directoryPath = path.join(__dirname, "../"); // replace with your directory path
+  fs.readdir(directoryPath, (err, filenames) => {
+    if (err) {
+      console.error("An error occurred reading the directory:", err);
+      return;
+    }
+    console.log(filenames)
+    event.sender.send("filenamesData", filenames);
+  });
+});
 
 app.whenReady().then(createWindow)
