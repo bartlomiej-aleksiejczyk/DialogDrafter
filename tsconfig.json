@@ -18,8 +18,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "electron"],
+  "include": [
+    "src",
+    "electron",
+    "node_modules/electron/electron.d.ts",
+    "node_modules/electron/electron.d.ts",
+    "node_modules/electron/electron.d.ts",
+    "node_modules/electron/electron.d.ts",
+    "node_modules/electron/electron.d.ts",
+    "node_modules/electron/electron.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
