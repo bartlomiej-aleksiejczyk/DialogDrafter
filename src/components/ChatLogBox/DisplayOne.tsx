@@ -1,15 +1,16 @@
 import {useEffect, useState} from 'react';
 import {ObjectDisplayer} from "./ObjectDisplayer";
 import {ListDisplayer} from "./ListDisplayer";
+import {MarkdownContent} from "./MarkdownContent";
 
 export function DisplayOne() {
     const [data, setData] = useState()
     const [filenames, setFilenames] = useState<string[]>();
     const handleSaveClick = () => {
-        window.ipcRenderer.send("saveChatLog", {test: "11success", test2: "double success"});
+        window.ipcRenderer.send("saveChatLog", {test: "11success", test2: "double success"}, "\\\\192.168.1.12\\aln-brt\\ssr-endpoint-naming.md");
     }
     const handleLoadClick = () => {
-        window.ipcRenderer.send("loadFile", "data.json");
+        window.ipcRenderer.send("loadFile", "\\\\192.168.1.12\\aln-brt\\ssr-endpoint-naming.md");
     }
     const handleLoadFilenamesClick = () => {
         window.ipcRenderer.send("loadFilenames", "\\\\192.168.1.12\\aln-brt");
@@ -54,7 +55,8 @@ export function DisplayOne() {
                 Load File
             </button>
             {data &&
-                <ObjectDisplayer data={data}/>
+                //<ObjectDisplayer data={data}/>
+                <MarkdownContent data={data}/>
             }
             <hr/>
             <button onClick={handleLoadFilenamesClick} className="btn w-40 mb-3">
