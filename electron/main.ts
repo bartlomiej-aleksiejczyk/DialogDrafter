@@ -58,16 +58,16 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on("saveChatLog", (sender, data) =>{
+ipcMain.on("saveChatLog", (sender, data, saveFilePath) =>{
   console.log(data)
   const sData = JSON.stringify(data)
-  fs.writeFileSync("data.json", sData)
+  fs.writeFileSync(saveFilePath, sData)
   console.log("Data saved")
 })
 
-ipcMain.on("loadFile", (event) => {
-  const filePath = path.join(__dirname, "../data.json"); // replace with your file path
-  fs.readFile(filePath, 'utf-8', (err, data) => {
+ipcMain.on("loadFile", (event, loadFilePath) => {
+  //const filePath = path.join(__dirname, "../data.json"); // replace with your file path
+  fs.readFile(loadFilePath, 'utf-8', (err, data) => {
     if (err) {
       console.error("An error occurred reading the file:", err);
       return;
@@ -76,9 +76,9 @@ ipcMain.on("loadFile", (event) => {
   });
 });
 
-ipcMain.on("loadFilenames", (event, directoryPath) => {
+ipcMain.on("loadFilenames", (event, loadDirectoryPath) => {
   //const directoryPath = path.join(__dirname, "../"); // replace with your directory path
-  fs.readdir(directoryPath, (err, filenames) => {
+  fs.readdir(loadDirectoryPath, (err, filenames) => {
     if (err) {
       console.error("An error occurred reading the directory:", err);
       return;
