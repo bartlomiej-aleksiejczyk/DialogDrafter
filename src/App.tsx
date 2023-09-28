@@ -1,14 +1,14 @@
-
-import {ChatLogBoxContent} from "./components/ChatLogBox/ChatLogBoxContent/ChatLogBoxContent";
-import {ChatLogCreator} from "./components/ChatLogCreator";
+import {DisplayOne} from "./components/ChatLogBox/DisplayOne";
 
 function App() {
-    const filePath = "path_to_your_markdown_file.md"; // replace with the actual path
-  return (
-    <>
-        <ChatLogCreator/>
-    </>
-  )
+
+    return (
+        <>
+            <div className="flex flex-col justify-center items-center mt-11">
+                <DisplayOne/>
+            </div>
+        </>
+    )
 }
 
 export default App
