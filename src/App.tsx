@@ -1,12 +1,9 @@
-import {DisplayOne} from "./components/ChatLogBox/DisplayOne";
+import {LoadInitialData} from "./components/prepareInitialConfig/LoadInitialData";
 
 function App() {
-
     return (
         <>
-            <div className="flex flex-col justify-center items-center mt-11">
-                <DisplayOne/>
-            </div>
+            <LoadInitialData/>
         </>
     )
 }
