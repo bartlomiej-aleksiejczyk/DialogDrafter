@@ -1,5 +1,7 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {SideMenuItem} from "./SideMenuItem";
+import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
+import {outputOnlyMdFiles} from "./outputOnlyMdFiles";
 
 function getDirectoryContent(directoryPath: string): string[] {
     return ['file1', 'file2', 'file3'];
@@ -9,6 +11,8 @@ function SideMenu() {
     // TODO: Make files selectable
     // TODO: Merge default directory and directories list
     // TODO: Set working directory from working file
+
+    // TODO: Check if transition App -> LoadInitialData -> SetInitialData -> [TopNavbar, SideMenu, ChatLogBoxContainer] is good idea
 
     // TODO: Handle if file is not set
     // TODO: Check if working directory is available
@@ -22,49 +26,45 @@ function SideMenu() {
 
     // TODO: Examine accessing object key as strong e.g., "object["key"]"
 
-    const [selectedDirectory, setSelectedDirectory] = useState('Default directory');
     const [directoryContent, setDirectoryContent] = useState<string[]>([]);
 
-    const availableDirectories = [{"Dir1": "Directory One"}, {"Dir2": "Directory Two"}]
-
-
+    const {applicationConfig, workingDirectory, setWorkingDirectory} = useContext(ApplicationConfigContext)
+    const availableDirectories = applicationConfig["directories"]
+    const handleFileData = (_event, data) => {
+        setDirectoryContent(outputOnlyMdFiles(data));
+    };
     useEffect(() => {
-        // Fetch and set the content of the selected directory
-        const content = getDirectoryContent(selectedDirectory);
-        setDirectoryContent(content);
-    }, [selectedDirectory]);
+        window.ipcRenderer.send("loadFilenames", workingDirectory);
+        let eventTargetRef = window.ipcRenderer.on("filenamesData", handleFileData);
+
+        console.log('Added listener:', window.ipcRenderer.listenerCount('filenamesData'));
+        return () => {
+            eventTargetRef.removeAllListeners('filenamesData')
+            //window.ipcRenderer.removeListener("filenamesData", handleFileData);
+
+            console.log('Removed listener. Remaining:', window.ipcRenderer.listenerCount('filenamesData'));
+
+        };
+    }, [workingDirectory]);
+    const handleSelectDirectory = (directoryPath) => {
+        setWorkingDirectory(directoryPath)
+    };
     return (
         <div className="inline fixed top-0 left-0 h-screen bg-base-200 text-base-content pt-16">
             <ul className="menu p-4 w-80">
-                <li className="p-2" onClick={() => setSelectedDirectory('Default directory')}>
-                    <a className="active">
-                        Default directory
-                    </a>
-                    {(selectedDirectory == "Default directory") &&
-                        <>
-                            <ul className="menu-dropdown menu-dropdown-show">
-                                {directoryContent.map(item => (
-                                    <SideMenuItem key={item} item={item}/>
-                                ))}
-                            </ul>
-                        </>
-                    }
-                </li>
-                {availableDirectories.map((dirObj) => {
-                    const key = Object.keys(dirObj)[0];
-                    const value = Object.values(dirObj)[0];
+                {Object.entries(availableDirectories).map(([key, value]) => {
                     return (
-                        <li key={key} className="p-2" onClick={() => setSelectedDirectory(value)}>
-                            {(selectedDirectory === value) ?
+                        <li key={key} className="p-2" onClick={() => handleSelectDirectory(value)}>
+                            {(workingDirectory === value) ?
                                 <>
-                                    <a className="active">{value}</a>
+                                    <a className="active">{key}</a>
                                     <ul className={`menu-dropdown menu-dropdown-show`}>
                                         {directoryContent.map(item => (
                                             <SideMenuItem key={item} item={item}/>
                                         ))}
                                     </ul>
                                 </>
-                                : <a>{value}</a>
+                                : <a>{key}</a>
                             }
                         </li>
                     );
