@@ -1,13 +1,14 @@
 import {shortenText} from "./utils/shortenText";
 import {useContext, useState} from "react";
-import {ApplicationConfigContext} from "../prepareInitialConfig/ApplicationConfigContext";
+import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
 import {chatLogToMarkdown} from "./utils/chatToMarkdown";
 
+// TODO: Edit single question/answer
 export const ChatLogBoxContent = ({filecontent, setFileContent}) => {
     const [newQuestion, setNewQuestion] = useState('');
     const [newAnswer, setNewAnswer] = useState('');
     const [showError, setShowError] = useState(false);
-    const applicationConfig = useContext(ApplicationConfigContext)
+    const {applicationConfig} = useContext(ApplicationConfigContext)
 
     const handleAddPair = async () => {
         if (newQuestion.trim() && newAnswer.trim()) {
