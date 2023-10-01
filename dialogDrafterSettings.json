@@ -1,7 +1,11 @@
 {
-  "workingFile": "./ssr-endpoint-naming.md",
+  "workingFile": "C:\\elektron-dialog-drafter-1\\ssr-endpoint-naming.md",
   "workingDirectory": "./",
   "defaultDirectories": "./",
   "defaultFolder": "./",
-  "directories": []
+  "directories": {
+    "Default":  "C:\\elektron-dialog-drafter-1",
+    "Work":  "C:\\elektron-dialog-drafter-2",
+    "Job":  "C:\\elektron-dialog-drafter-3"
+  }
 }
