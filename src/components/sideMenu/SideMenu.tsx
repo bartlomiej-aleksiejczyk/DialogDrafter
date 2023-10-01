@@ -3,9 +3,6 @@ import {SideMenuItem} from "./SideMenuItem";
 import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
 import {outputOnlyMdFiles} from "./outputOnlyMdFiles";
 
-function getDirectoryContent(directoryPath: string): string[] {
-    return ['file1', 'file2', 'file3'];
-}
 
 function SideMenu() {
     // TODO: Make files selectable
@@ -35,16 +32,8 @@ function SideMenu() {
     };
     useEffect(() => {
         window.ipcRenderer.send("loadFilenames", workingDirectory);
-        let eventTargetRef = window.ipcRenderer.on("filenamesData", handleFileData);
-
-        console.log('Added listener:', window.ipcRenderer.listenerCount('filenamesData'));
-        return () => {
-            eventTargetRef.removeAllListeners('filenamesData')
-            //window.ipcRenderer.removeListener("filenamesData", handleFileData);
-
-            console.log('Removed listener. Remaining:', window.ipcRenderer.listenerCount('filenamesData'));
-
-        };
+        window.ipcRenderer.once("filenamesData", handleFileData);
+        return () => {};
     }, [workingDirectory]);
     const handleSelectDirectory = (directoryPath) => {
         setWorkingDirectory(directoryPath)
@@ -60,7 +49,7 @@ function SideMenu() {
                                     <a className="active">{key}</a>
                                     <ul className={`menu-dropdown menu-dropdown-show`}>
                                         {directoryContent.map(item => (
-                                            <SideMenuItem key={item} item={item}/>
+                                            <SideMenuItem key={item} fileName={item} directory={value as string}/>
                                         ))}
                                     </ul>
                                 </>
