@@ -1,4 +1,4 @@
-import {LoadInitialData} from "./components/prepareInitialConfig/LoadInitialData";
+import {LoadInitialData} from "./components/initialConfig/LoadInitialData";
 
 function App() {
     return (
