@@ -6,13 +6,13 @@ import {addMdExtension} from "../../shared/utils/addMdExtension";
 import {joinPath} from "../../shared/utils/joinPath";
 import {toast} from "react-hot-toast";
 import {SuccessToast} from "../../shared/toasts/SuccessToast";
+import {validFilenameRegex} from "../../shared/validators/validators";
 
 type NewFileInput = {
     fileName: string
 }
-const validFilenameRegex = /^[\w\-. ]+$/i
 const maxFilenameLength = 200
-// TODO: Add snackbar for file save
+// TODO: Rename methods to make things more logical
 export function NewFileModal() {
     const {
         platform,
