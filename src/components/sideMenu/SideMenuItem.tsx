@@ -19,7 +19,7 @@ export function SideMenuItem ({fileName, directory}: SideMenuItemProps) {
     };
 
     return (
-        <li className="">
+        <li className="pt-2">
             <a onClick={() => handleSelectFile()}
                className={`${
                (newWorkingFilePath === applicationConfig["workingFile"] &&
