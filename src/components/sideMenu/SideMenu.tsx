@@ -46,7 +46,7 @@ function SideMenu() {
             <ul className="menu p-4 w-80 overflow-y-auto max-h-[calc(100vh-4rem)] flex-nowrap ">
                 {Object.entries(availableDirectories).map(([key, value]) => {
                     return (
-                        <li key={key} className="p-2" onClick={() => handleSelectDirectory(value)}>
+                        <li key={key} className="p-2 w-60" onClick={() => handleSelectDirectory(value)}>
                             {(workingDirectory === value) ?
                                 <>
                                     <a className="active">{key}</a>

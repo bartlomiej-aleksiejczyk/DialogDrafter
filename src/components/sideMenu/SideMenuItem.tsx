@@ -19,11 +19,12 @@ export function SideMenuItem ({fileName, directory}: SideMenuItemProps) {
     };
 
     return (
-        <li>
+        <li className="">
             <a onClick={() => handleSelectFile()}
-               className={
-                   (newWorkingFilePath === applicationConfig["workingFile"] &&
-                       directory === workingDirectory) ? "active" : "" }>
+               className={`${
+               (newWorkingFilePath === applicationConfig["workingFile"] &&
+                   directory === workingDirectory) ? "active" : ""} truncate w-60 block 
+                           scroll-on-hover`}>
                 {fileName}
             </a>
         </li>
