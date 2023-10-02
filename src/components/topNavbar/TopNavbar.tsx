@@ -1,13 +1,5 @@
 export function TopNavbar() {
-    // TODO: Add button with new chatlog with selectable directory
     // TODO: Add button add directory
-
-    const handleNewChatlog = async () => {
-        // TODO: Implement functionality to create a new chatlog
-        // This might involve opening a dialog to select a directory, then
-        // creating a new chatlog file there.
-        console.log("Creating new chatlog...");
-    };
 
     const handleAddDirectory = async () => {
         // TODO: Implement functionality to add a directory
@@ -26,7 +18,7 @@ export function TopNavbar() {
                 <div className="pl-20">
                     <button
                         className="btn btn-primary normal-case text-xl"
-                        onClick={handleNewChatlog}
+                        onClick={()=>document.getElementById('newFileModal').showModal()}
                     >
                         <span>New Chat</span>
                     </button>
