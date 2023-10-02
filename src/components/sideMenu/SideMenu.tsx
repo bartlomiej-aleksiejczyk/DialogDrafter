@@ -42,8 +42,8 @@ function SideMenu() {
         setWorkingDirectory(directoryPath)
     };
     return (
-        <div className="inline fixed top-0 left-0 h-screen bg-base-200 text-base-content pt-16">
-            <ul className="menu p-4 w-80">
+        <div className="inline fixed top-0 left-0 h-screen bg-base-200 text-base-content pt-16 overflow-hidden ">
+            <ul className="menu p-4 w-80 overflow-y-auto max-h-[calc(100vh-4rem)] flex-nowrap ">
                 {Object.entries(availableDirectories).map(([key, value]) => {
                     return (
                         <li key={key} className="p-2" onClick={() => handleSelectDirectory(value)}>
