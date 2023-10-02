@@ -3,7 +3,10 @@ import {useContext, useState} from "react";
 import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
 import {chatLogToMarkdown} from "./utils/chatToMarkdown";
 
-// TODO: Edit single question/answer
+// TODO: Make single question/answer editable
+// TODO: Change chatlog appearance
+// TODO: Change empty chatLog appearance, center out stuff
+
 export const ChatLogBoxContent = ({filecontent, setFileContent}) => {
     const [newQuestion, setNewQuestion] = useState('');
     const [newAnswer, setNewAnswer] = useState('');

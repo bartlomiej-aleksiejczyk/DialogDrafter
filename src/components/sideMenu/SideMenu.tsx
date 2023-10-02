@@ -5,6 +5,9 @@ import {outputOnlyMdFiles} from "./outputOnlyMdFiles";
 
 
 function SideMenu() {
+    // TODO: Add scroll ability to side bar
+    // TODO: Improve spacing between menu items
+
     // TODO: Make files selectable
     // TODO: Merge default directory and directories list
     // TODO: Set working directory from working file
@@ -34,7 +37,7 @@ function SideMenu() {
         window.ipcRenderer.send("loadFilenames", workingDirectory);
         window.ipcRenderer.once("filenamesData", handleFileData);
         return () => {};
-    }, [workingDirectory]);
+    }, [workingDirectory, applicationConfig]);
     const handleSelectDirectory = (directoryPath) => {
         setWorkingDirectory(directoryPath)
     };
