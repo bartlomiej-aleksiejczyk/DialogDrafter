@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
-import {joinPath} from "./joinPath";
+import {joinPath} from "../../shared/utils/joinPath";
 
 interface SideMenuItemProps {
     fileName: string
