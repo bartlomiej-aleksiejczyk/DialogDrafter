@@ -1,9 +1,9 @@
 import {toast} from "react-hot-toast";
-
-export const SuccessToast = (t) => (
+//TODO: Clean up this, prop feels wrong
+export const SuccessToast = (message) => (
     <div
         className={`${
-            t.visible ? 'animate-enter' : 'animate-leave'
+            message.visible ? 'animate-enter' : 'animate-leave'
         } max-w-md w-full pointer-events-auto alert alert-success`}
     >
         <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -13,9 +13,9 @@ export const SuccessToast = (t) => (
         </svg>
         <div>
             <h3 className="font-bold">Success!</h3>
-            <div className="text-xs">{t.message}</div>
+            <div className="text-xs">{message}</div>
         </div>
-        <button onClick={() => toast.remove(t.id)} className="btn btn-sm">
+        <button onClick={() => toast.remove(message.id)} className="btn btn-sm">
             Close
         </button>
     </div>

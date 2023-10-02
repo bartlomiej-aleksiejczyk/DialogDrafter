@@ -1,18 +1,18 @@
 import {toast} from "react-hot-toast";
 
-export const SuccessToast = (t) => (
+export const ErrorToast = (t) => (
     <div
         className={`${
             t.visible ? 'animate-enter' : 'animate-leave'
-        } max-w-md w-full pointer-events-auto alert alert-success`}
+        } max-w-md w-full pointer-events-auto alert alert-error`}
     >
         <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-             fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                  d="m7 10 2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+             fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
         </svg>
         <div>
-            <h3 className="font-bold">Success!</h3>
+            <h3 className="font-bold">Error!</h3>
             <div className="text-xs">{t.message}</div>
         </div>
         <button onClick={() => toast.remove(t.id)} className="btn btn-sm">

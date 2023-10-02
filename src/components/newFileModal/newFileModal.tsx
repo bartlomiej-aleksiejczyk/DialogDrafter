@@ -5,7 +5,6 @@ import {outputOnlyMdFiles} from "../sideMenu/outputOnlyMdFiles";
 import {addMdExtension} from "../../shared/utils/addMdExtension";
 import {joinPath} from "../../shared/utils/joinPath";
 import {toast} from "react-hot-toast";
-import {data} from "autoprefixer";
 import {SuccessToast} from "../../shared/toasts/SuccessToast";
 
 type NewFileInput = {
@@ -28,7 +27,6 @@ export function NewFileModal() {
     const {
         register,
         handleSubmit,
-        watch,
         formState: {errors},
         clearErrors,
     } = useForm<NewFileInput>()
@@ -61,7 +59,7 @@ export function NewFileModal() {
                     color: '#fff',
                 },
             });*/
-        toast.custom(SuccessToast);
+        toast.custom(SuccessToast(data.message));
     };
     const handleDirectoryData = (_event, data) => {
         const processedData = outputOnlyMdFiles(data);
@@ -112,11 +110,12 @@ export function NewFileModal() {
                         )}
                         <select className="select w-full max-w-xs"
                                 onChange={handleDirectoryChange}
+                                value={selectedDirectory}
                         >
                             <option disabled>Pick your file destinantion</option>
                             {
                                 Object.entries(applicationConfig["directories"]).map(([key, value ]) => (
-                                        <option key={key} defaultValue={value === workingDirectory}>{key} [{value}]</option>
+                                        <option key={key} value={value as string}>{key} [{value}]</option>
                                     )
                                 )
                             }
