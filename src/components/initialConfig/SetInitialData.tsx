@@ -3,6 +3,7 @@ import {ChatLogBoxContainer} from "../chatLogBox/ChatLogBoxContainer";
 import SideMenu from "../sideMenu/SideMenu";
 import {TopNavbar} from "../topNavbar/TopNavbar";import {Dispatch, SetStateAction} from "react";
 import {NewFileModal} from "../newFileModal/newFileModal";
+import {AddDirectoryModal} from "../AddDirectoryModal";
 
 interface SetInitialDataProps {
     applicationConfig: Record<string, string>;
@@ -34,6 +35,7 @@ export function SetInitialData({
                     <ChatLogBoxContainer/>
                 </div>
                 <NewFileModal/>
+                <AddDirectoryModal/>
             </div>
         </ApplicationConfigContext.Provider>
     )

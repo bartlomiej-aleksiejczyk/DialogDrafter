@@ -1,13 +1,4 @@
 export function TopNavbar() {
-    // TODO: Add button add directory
-
-    const handleAddDirectory = async () => {
-        // TODO: Implement functionality to add a directory
-        // This might involve opening a dialog to select a directory and
-        // then updating your UI/state to reflect the new directory.
-        console.log("Adding directory...");
-    };
-
     return (
         <div className=" font-medium navbar fixed bg-base-300 z-50 flex justify-between">
             <div className="flex space-x-8 pl-4">
@@ -26,7 +17,7 @@ export function TopNavbar() {
                 <div>
                     <button
                         className="btn btn-outline btn-primary normal-case text-xl"
-                        onClick={handleAddDirectory}
+                        onClick={()=>document.getElementById('addDirectoryModal').showModal()}
                     >
                         <span>Add Directory</span>
                     </button>

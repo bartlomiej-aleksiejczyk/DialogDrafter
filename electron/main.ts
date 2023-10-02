@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain} from 'electron';
+import {app, BrowserWindow, ipcMain, dialog} from 'electron';
 import path from 'node:path';
 import * as fs from 'fs';
 
@@ -97,6 +97,18 @@ app.on('window-all-closed', () => {
         app.quit();
         win = null;
     }
+});
+
+ipcMain.on('open-directory-picker', (event) => {
+    dialog.showOpenDialog({
+        properties: ['openDirectory']
+    }).then(result => {
+        if (!result.canceled && result.filePaths.length > 0) {
+            event.sender.send('directory-picked', result.filePaths[0]);
+        }
+    }).catch(err => {
+        console.log(err);
+    });
 });
 
 app.on('activate', () => {
