@@ -1,9 +1,6 @@
 import {ApplicationConfigContext} from "./ApplicationConfigContext";
-import {ChatLogBoxContainer} from "../chatLogBox/ChatLogBoxContainer";
-import SideMenu from "../sideMenu/SideMenu";
-import {TopNavbar} from "../topNavbar/TopNavbar";import {Dispatch, SetStateAction} from "react";
-import {NewFileModal} from "../newFileModal/newFileModal";
-import {AddDirectoryModal} from "../AddDirectoryModal";
+import {Dispatch, SetStateAction} from "react";
+import {MainComponentContainer} from "../mainComponentContainer/MainComponentContainer";
 
 interface SetInitialDataProps {
     applicationConfig: Record<string, string>;
@@ -28,15 +25,7 @@ export function SetInitialData({
                 workingDirectory,
                 setWorkingDirectory,
                 userPlatform}}>
-            <div className="flex flex-col">
-                <TopNavbar />
-                <div className="flex flex-row">
-                    <SideMenu />
-                    <ChatLogBoxContainer/>
-                </div>
-                <NewFileModal/>
-                <AddDirectoryModal/>
-            </div>
+            <MainComponentContainer/>
         </ApplicationConfigContext.Provider>
     )
 }
