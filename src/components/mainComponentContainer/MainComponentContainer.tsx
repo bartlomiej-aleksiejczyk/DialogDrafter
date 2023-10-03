@@ -6,6 +6,8 @@ import {AddDirectoryModal} from "../addDirectoryModal/AddDirectoryModal";
 import {defaultConfig} from "../../shared/config/defaultConfig";
 
 import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
+import {toast} from "react-hot-toast";
+import {SuccessToast} from "../../shared/toasts/SuccessToast";
 
 export function MainComponentContainer() {
     //TODO: Add handling for specific changes in config. For example "Added new directory" instead of "Config successfully changed"
@@ -16,6 +18,7 @@ export function MainComponentContainer() {
         window.ipcRenderer.send("saveConfigFile", applicationConfig, defaultConfig.SETTINGS_PATH);
         window.ipcRenderer.on('saveConfigFileSuccess', (event, data) => {
             console.log(data.message);
+            toast.custom(SuccessToast(data.message));
         });
         return () => {
         };
