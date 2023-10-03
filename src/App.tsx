@@ -1,12 +1,11 @@
-import {Toaster, ToastIcon, toast, resolveValue} from "react-hot-toast";
+import {Toaster} from "react-hot-toast";
 import {LoadInitialData} from "./components/initialConfig/LoadInitialData";
 
 function App() {
     return (
         <>
             <LoadInitialData/>
-            <Toaster position="bottom-left"
-            />
+            <Toaster position="bottom-left"/>
         </>
     )
 }
