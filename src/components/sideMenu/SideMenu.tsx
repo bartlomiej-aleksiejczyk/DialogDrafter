@@ -2,6 +2,10 @@ import {useContext, useEffect, useState} from "react";
 import {SideMenuItem} from "./SideMenuItem";
 import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
 import {outputOnlyMdFiles} from "./outputOnlyMdFiles";
+import {ContextMenu, ContextMenuBody} from "./contextMenu/ContextMenuBody";
+import {handleRightClick} from "./contextMenu/handleRightClick";
+import {handleRemove} from "./contextMenu/handleRemove";
+import {handleRename} from "./contextMenu/handleRename";
 
 
 function SideMenu() {
@@ -22,16 +26,30 @@ function SideMenu() {
     // TODO: Examine accessing object key as strong e.g., "object["key"]"
 
     const [directoryContent, setDirectoryContent] = useState<string[]>([]);
+    const [contextMenu, setContextMenu] = useState<ContextMenu>({
+        x: 0,
+        y: 0,
+        isVisible: false,
+        directoryKey: ''
+    });
+
 
     const {applicationConfig, workingDirectory, setWorkingDirectory} = useContext(ApplicationConfigContext)
     const availableDirectories = applicationConfig["directories"]
     const handleFileData = (_event, data) => {
         setDirectoryContent(outputOnlyMdFiles(data));
     };
+
+    useEffect(() => {
+        const handleGlobalClick = () => setContextMenu(prev => ({...prev, isVisible: false}));
+        window.addEventListener('click', handleGlobalClick);
+        return () => window.removeEventListener('click', handleGlobalClick);
+    }, []);
     useEffect(() => {
         window.ipcRenderer.send("loadFilenames", workingDirectory);
         window.ipcRenderer.once("filenamesData", handleFileData);
-        return () => {};
+        return () => {
+        };
     }, [workingDirectory, applicationConfig]);
     const handleSelectDirectory = (directoryPath) => {
         setWorkingDirectory(directoryPath)
@@ -41,21 +59,28 @@ function SideMenu() {
             <ul className="menu p-4 w-80 overflow-y-auto max-h-[calc(100vh-4rem)] flex-nowrap ">
                 {Object.entries(availableDirectories).map(([key, value]) => {
                     return (
-                        <li key={key} className="p-2 w-60" onClick={() => handleSelectDirectory(value)}>
+                        <li key={key} className="p-2"
+                            onClick={() => handleSelectDirectory(value)}
+                        >
                             {(workingDirectory === value) ?
                                 <>
-                                    <a className="active">{key}</a>
+                                    <a className="active w-60"
+                                       onContextMenu={(e) => handleRightClick(e, key, setContextMenu)}
+                                    >{key}</a>
                                     <ul className={`menu-dropdown menu-dropdown-show`}>
                                         {directoryContent.map(item => (
                                             <SideMenuItem key={item} fileName={item} directory={value as string}/>
                                         ))}
                                     </ul>
                                 </>
-                                : <a>{key}</a>
+                                : <a className="w-60">{key}</a>
                             }
                         </li>
+
                     );
                 })}
+                <ContextMenuBody context contextMenu={contextMenu} handleRemove={handleRemove}
+                                 handleRename={handleRename}/>
             </ul>
         </div>
     );
