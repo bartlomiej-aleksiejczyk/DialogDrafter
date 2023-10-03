@@ -25,7 +25,9 @@ export function AddDirectoryModal() {
 
     const isDirectoryNameAvailable = (directoryName: string) => !Object.keys(directories).includes(directoryName);
     const isDirectoryPathAvailable = (directoryPath: string) => {
-        Object.values(directories).includes(JSON.stringify(directoryPath))
+        const isPathAvailable = !Object.values(directories).includes(directoryPath);
+        console.log(isPathAvailable);
+        return isPathAvailable
     };
 
     useEffect(() => {
