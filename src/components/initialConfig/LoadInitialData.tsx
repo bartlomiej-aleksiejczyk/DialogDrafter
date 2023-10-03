@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {SetInitialData} from "./SetInitialData";
-import {defaultConfig} from "../../config/defaultConfig";
+import {defaultConfig} from "../../shared/config/defaultConfig";
 import {getPathUntilLastSlash} from "./getPathUntilLastSlash";
 
 export function LoadInitialData() {

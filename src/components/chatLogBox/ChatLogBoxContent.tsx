@@ -7,6 +7,8 @@ import {chatLogToMarkdown} from "./utils/chatToMarkdown";
 // TODO: Change chatlog appearance
 // TODO: Change empty chatLog appearance, center out stuff
 
+// TODO: Remove "hidden" modals on bottom of container
+
 export const ChatLogBoxContent = ({filecontent, setFileContent}) => {
     const [newQuestion, setNewQuestion] = useState('');
     const [newAnswer, setNewAnswer] = useState('');

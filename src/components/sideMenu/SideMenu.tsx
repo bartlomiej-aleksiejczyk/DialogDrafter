@@ -5,15 +5,10 @@ import {outputOnlyMdFiles} from "./outputOnlyMdFiles";
 
 
 function SideMenu() {
-    // TODO: Add scroll ability to side bar
-    // TODO: Improve spacing between menu items
-
-    // TODO: Make files selectable
-    // TODO: Merge default directory and directories list
-    // TODO: Set working directory from working file
 
     // TODO: Check if transition App -> LoadInitialData -> SetInitialData -> [TopNavbar, SideMenu, ChatLogBoxContainer] is good idea
 
+    //TODO: Handle if directory path is wrong
     // TODO: Handle if file is not set
     // TODO: Check if working directory is available
     // TODO: Check if working directory is in directory list
