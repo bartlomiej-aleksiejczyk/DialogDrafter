@@ -60,9 +60,20 @@ ipcMain.on('saveWorkingFile', (event, data, saveFilePath) => {
         }
     });
 });
+ipcMain.on('saveConfigFile', (event, data, saveFilePath) => {
+    fs.writeFile(saveFilePath, JSON.stringify(data), err => {
+        if (err) {
+            console.error('An error occurred writing the config:', err);
+            event.sender.send('error', 'An error occurred saving the config.');
+        } else {
+            event.sender.send('saveConfigFileSuccess', {message: 'Config saved successfully', newFilePath: saveFilePath});
+        }
+    });
+});
 
 ipcMain.on('loadWorkingFile', (event, loadFilePath) => {
     console.log(loadFilePath)
+    console.log("TEST RN")
 
     fs.readFile(loadFilePath, 'utf-8', (err, data) => {
 
@@ -74,6 +85,7 @@ ipcMain.on('loadWorkingFile', (event, loadFilePath) => {
         }
     });
 });
+
 
 ipcMain.on('loadFilenames', (event, loadDirectoryPath) => {
         fs.readdir(loadDirectoryPath, (err, filenames) => {
@@ -104,7 +116,7 @@ ipcMain.on('open-directory-picker', (event) => {
         properties: ['openDirectory']
     }).then(result => {
         if (!result.canceled && result.filePaths.length > 0) {
-            event.sender.send('directory-picked', result.filePaths[0]);
+            event.sender.send('directory-picked', {path: result.filePaths[0], message: "Directory set successfully"});
         }
     }).catch(err => {
         console.log(err);
