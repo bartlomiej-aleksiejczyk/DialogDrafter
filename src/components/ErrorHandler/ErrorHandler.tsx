@@ -4,10 +4,12 @@ import {ErrorToast} from "../../shared/toasts/ErrorToast";
 
 export function ErrorHandler() {
     const handleNewFileData = (_event, data) => {
-        toast(t => <ErrorToast {...t} message={data.message} />);    }
+        toast.custom(ErrorToast(data.message));
+    }
     useEffect(() => {
         window.ipcRenderer.on("error", handleNewFileData);
         return () => {
+            window.ipcRenderer.removeAllListeners("error")
         };
     }, []);
 }
