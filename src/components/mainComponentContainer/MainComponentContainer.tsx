@@ -11,6 +11,18 @@ import {SuccessToast} from "../../shared/toasts/SuccessToast";
 
 export function MainComponentContainer() {
     //TODO: Add handling for specific changes in config. For example "Added new directory" instead of "Config successfully changed"
+
+    // TODO: Check if transition App -> LoadInitialData -> SetInitialData -> [TopNavbar, SideMenu, ChatLogBoxContainer] is good idea
+
+    //TODO: Handle if directory path is wrong
+    // TODO: Handle if file is not set
+    // TODO: Check if working directory is available
+    // TODO: Check if working directory is in directory list
+    // TODO: Check if working file is available
+    // TODO: Check if working file is in working directory
+    // TODO: Error handling for I/O errors
+    // TODO: Examine accessing object key as string e.g., "object["key"]"
+
     const {
         applicationConfig,
     } = useContext(ApplicationConfigContext)

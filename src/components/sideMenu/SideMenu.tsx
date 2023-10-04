@@ -8,11 +8,12 @@ import {handleRemove} from "./contextMenu/handleRemove";
 import {handleRename} from "./contextMenu/handleRename";
 import {DropdownPortal} from "./dropdownPortal/DropdownPortal";
 import {handleButtonClick} from "./dropdownPortal/handleButtonClick";
+import {RemoveDirectoryModal} from "./modals/RemoveDirectoryModal";
 
 
 function SideMenu() {
     // TODO: Add remove/rename directory feature
-
+    const directoryToChange = useRef<string | null>(null);
     const [directoryContent, setDirectoryContent] = useState<string[]>([]);
     const [visibleDropdown, setVisibleDropdown] = useState<string | null>(null);
 
@@ -25,7 +26,7 @@ function SideMenu() {
         isVisible: false,
         directoryKey: ''
     });
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [position, setPosition] = useState({x: 0, y: 0});
     const dropdownRef = useRef(null);
     const buttonRef = useRef(null);
 
@@ -52,9 +53,17 @@ function SideMenu() {
         setWorkingDirectory(directoryPath)
     };
 
+    const handleClickOnRemoveDirectory = () => {
+        directoryToChange.current = visibleDropdown as string;
+        console.log(isRemoveModalVisible)
+        setVisibleDropdown(null)
+        setIsRemoveModalVisible(true)
+    }
+
+
     return (
         <div className="inline fixed top-0 left-0 h-screen bg-base-200 text-base-content pt-16 overflow-hidden ">
-            <ul className={`menu p-4 w-80  max-h-[calc(100vh-4rem)] flex-nowrap ${visibleDropdown ? "overflow-hidden" : "overflow-y-auto" }`}>
+            <ul className={`menu p-4 w-80  max-h-[calc(100vh-4rem)] flex-nowrap ${visibleDropdown ? "overflow-hidden" : "overflow-y-auto"}`}>
                 {Object.entries(availableDirectories).map(([key, value]) => {
                     return (
                         <div key={key} className="flex">
@@ -77,7 +86,7 @@ function SideMenu() {
                             </li>
                             <button onClick={(e) => handleButtonClick(e, key, setPosition, setVisibleDropdown)}
                                     ref={buttonRef}
-                                    className={`btn btn-sm btn-square ml-2 mt-2.5 ${visibleDropdown===key&&"btn-active"}`}>
+                                    className={`btn btn-sm btn-square ml-2 mt-2.5 ${visibleDropdown === key && "btn-active"}`}>
                                 <svg className="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
                                     <path
@@ -90,7 +99,7 @@ function SideMenu() {
                                         className="dropdown-content mt-1 p-2 shadow menu shadow bg-base-100 rounded-box w-52"
                                         ref={dropdownRef}>
                                         <li><a>Rename item</a></li>
-                                        <li><a>Remove item</a></li>
+                                        <li ><a onClick={(e) => {e.stopPropagation(); handleClickOnRemoveDirectory();}}>Remove item</a></li>
                                     </ul>
                                 </DropdownPortal>
                             )}
@@ -99,6 +108,7 @@ function SideMenu() {
                 })}
                 <ContextMenuBody context contextMenu={contextMenu} handleRemove={handleRemove}
                                  handleRename={handleRename}/>
+                <RemoveDirectoryModal directoryToRemove={directoryToChange} isVisible={isRemoveModalVisible} setIsVisible={setIsRemoveModalVisible}/>
             </ul>
         </div>
     );
