@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {handleDirectoryRemove} from "./handleDirectoryRemove";
+import {ApplicationConfigContext} from "../../initialConfig/ApplicationConfigContext";
 
 type RemoveDirectoryModalProps = {
     directoryToRemove: string
@@ -7,10 +9,11 @@ type RemoveDirectoryModalProps = {
 };
 
 export const RemoveDirectoryModal = ({directoryToRemove, isVisible, setIsVisible }: RemoveDirectoryModalProps) => {
+    const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext)
 
     const handleConfirm = () => {
         setIsVisible(false);
-        //onConfirm();
+        handleDirectoryRemove(directoryToRemove, applicationConfig, setApplicationConfig);
     };
 
     const handleClose = () => {

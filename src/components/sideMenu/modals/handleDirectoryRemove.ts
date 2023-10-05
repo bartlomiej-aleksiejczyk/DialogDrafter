@@ -1,11 +1,8 @@
-import {SubmitHandler} from "react-hook-form";
-
-export const handleDirectoryRemove = (filename) => {
-    console.log(filename)
-    const newDirectories = {...directories, [filename]: getValues("selectedDirectory")}
+export const handleDirectoryRemove = (filename, applicationConfig, setApplicationConfig) => {
+    const { [filename]: fileToRemove, ...newDirectories } = applicationConfig["directories"];
     setApplicationConfig({
         ...applicationConfig,
         "directories": newDirectories
-    })
-    document.getElementById('addDirectoryModal')?.close()
+    });
+    document.getElementById('addDirectoryModal')?.close();
 };
