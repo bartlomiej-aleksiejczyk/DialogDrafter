@@ -7,7 +7,7 @@ import {errorMessages} from "./errorMessages";
 type DirectoryInput = {
     directoryName: string;
 };
-
+// TODO: Change modal to be more reactive
 // TODO: Change size of filepath error message
 export function AddDirectoryModal() {
     const [selectedDirectory, setSelectedDirectory] = useState("");
