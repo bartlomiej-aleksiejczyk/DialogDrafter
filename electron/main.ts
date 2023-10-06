@@ -51,7 +51,7 @@ ipcMain.on('loadConfigFile', (event, loadFilePath) => {
 });
 
 ipcMain.on('saveWorkingFile', (event, data, saveFilePath) => {
-    fs.writeFile(saveFilePath, JSON.stringify(data), err => {
+    fs.writeFile(saveFilePath, data, err => {
         if (err) {
             console.error('An error occurred writing the file:', err);
             event.sender.send('error', 'An error occurred saving the working file.');
