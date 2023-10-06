@@ -33,7 +33,7 @@ export function NewFileModal() {
 
     const onSubmit: SubmitHandler<NewFileInput> = (filename) => {
         const newFileFullPath = joinPath([selectedDirectory, addMdExtension(filename.fileName)], platform);
-        window.ipcRenderer.send("saveWorkingFile", {}, newFileFullPath);
+        window.ipcRenderer.send("saveWorkingFile", "", newFileFullPath);
         window.ipcRenderer.once("saveWorkingFileSuccess", handleNewFileData);
         document.getElementById('newFileModal')?.close()
     }
@@ -70,8 +70,10 @@ export function NewFileModal() {
     useEffect(() => {
 
         window.ipcRenderer.send("loadFilenames", selectedDirectory);
-        window.ipcRenderer.once("filenamesData", handleDirectoryData);
+        window.ipcRenderer.on("filenamesData", handleDirectoryData);
         return () => {
+            window.ipcRenderer.off("filenamesData", handleDirectoryData);
+            console.log(window.ipcRenderer.listeners("filenamesData"))
         };
     }, [selectedDirectory]);
 
