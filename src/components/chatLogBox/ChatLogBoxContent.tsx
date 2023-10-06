@@ -22,8 +22,9 @@ export const ChatLogBoxContent = ({filecontent, setFileContent}) => {
             setNewQuestion('');
             setNewAnswer('');
             setShowError(false);
+
             window.ipcRenderer.send("saveWorkingFile", chatLogToMarkdown(newFileContent), applicationConfig["workingFile"]);
-            window.ipcRenderer.on('saveWorkingFileSuccess', (event, data) => {
+            window.ipcRenderer.once('saveWorkingFileSuccess', (event, data) => {
                 console.log(data.message);
             });
         } else {
