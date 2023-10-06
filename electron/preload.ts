@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
-
+// TODO: Fix it, as it is a security hole https://stackoverflow.com/questions/66913598/ipcrenderer-on-is-not-a-function
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', withPrototype(ipcRenderer))
 
