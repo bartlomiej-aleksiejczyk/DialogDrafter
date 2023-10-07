@@ -9,6 +9,7 @@ import {handleRename} from "./contextMenu/handleRename";
 import {DropdownPortal} from "./dropdownPortal/DropdownPortal";
 import {handleButtonClick} from "./dropdownPortal/handleButtonClick";
 import {RemoveDirectoryModal} from "./modals/RemoveDirectoryModal";
+import {RenameDirectoryModal} from "./modals/RenameDirectoryModal";
 
 
 function SideMenu() {
@@ -59,7 +60,12 @@ function SideMenu() {
         setVisibleDropdown(null)
         setIsRemoveModalVisible(true)
     }
-
+    const handleClickOnRenameDirectory = () => {
+        directoryToChange.current = visibleDropdown as string;
+        console.log(isRemoveModalVisible)
+        setVisibleDropdown(null)
+        setIsRenameModalVisible(true)
+    }
 
     return (
         <div className="inline fixed top-0 left-0 h-screen bg-base-200 text-base-content pt-16 overflow-hidden ">
@@ -98,8 +104,14 @@ function SideMenu() {
                                     <ul tabIndex={0}
                                         className="dropdown-content mt-1 p-2 shadow menu shadow bg-base-100 rounded-box w-52"
                                         ref={dropdownRef}>
-                                        <li><a>Rename item</a></li>
-                                        <li ><a onClick={(e) => {e.stopPropagation(); handleClickOnRemoveDirectory();}}>Remove item</a></li>
+                                        <li><a onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleClickOnRenameDirectory();
+                                        }}>Rename item</a></li>
+                                        <li><a onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleClickOnRemoveDirectory();
+                                        }}>Remove item</a></li>
                                     </ul>
                                 </DropdownPortal>
                             )}
@@ -108,7 +120,10 @@ function SideMenu() {
                 })}
                 <ContextMenuBody context contextMenu={contextMenu} handleRemove={handleRemove}
                                  handleRename={handleRename}/>
-                <RemoveDirectoryModal directoryToRemove={directoryToChange.current as string} isVisible={isRemoveModalVisible} setIsVisible={setIsRemoveModalVisible}/>
+                <RemoveDirectoryModal directoryToRemove={directoryToChange.current as string}
+                                      isVisible={isRemoveModalVisible} setIsVisible={setIsRemoveModalVisible}/>
+                <RenameDirectoryModal isVisible={isRenameModalVisible} setIsVisible={setIsRenameModalVisible}
+                                      directoryToRename={directoryToChange.current as string}/>
             </ul>
         </div>
     );
