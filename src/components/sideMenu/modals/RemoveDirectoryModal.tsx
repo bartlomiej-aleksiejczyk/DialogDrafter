@@ -1,17 +1,16 @@
 import React, {useContext} from 'react';
 import {handleDirectoryRemove} from "./handleDirectoryRemove";
 import {ApplicationConfigContext} from "../../initialConfig/ApplicationConfigContext";
+import {GenericModalProps} from "../../../shared/interfaces/GenericModalProps";
 
-type RemoveDirectoryModalProps = {
+interface RemoveDirectoryModalProps extends GenericModalProps {
     directoryToRemove: string
-    isVisible: boolean;
-    setIsVisible: (isVisible: boolean) => void;
-};
+}
 
-export const RemoveDirectoryModal = ({directoryToRemove, isVisible, setIsVisible }: RemoveDirectoryModalProps) => {
+export const RemoveDirectoryModal = ({directoryToRemove, isVisible, setIsVisible}: RemoveDirectoryModalProps) => {
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext)
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         setIsVisible(false);
         handleDirectoryRemove(directoryToRemove, applicationConfig, setApplicationConfig);
     };
