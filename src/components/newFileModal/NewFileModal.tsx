@@ -7,13 +7,15 @@ import {joinPath} from "../../shared/utils/joinPath";
 import {toast} from "react-hot-toast";
 import {SuccessToast} from "../../shared/toasts/SuccessToast";
 import {maxFilenameLength, validFilenameRegex} from "../../shared/validators/validators";
+import {GenericModalProps} from "../../shared/interfaces/GenericModalProps";
 
 type NewFileInput = {
     fileName: string
 }
+
 // TODO: Rename methods to make things more logical
-// TODO: Save working file also to config
-export function NewFileModal() {
+
+export function NewFileModal({isModalVisible, setIsModalVisible}: GenericModalProps) {
     const {
         platform,
         applicationConfig,
@@ -35,7 +37,7 @@ export function NewFileModal() {
         const newFileFullPath = joinPath([selectedDirectory, addMdExtension(filename.fileName)], platform);
         window.ipcRenderer.send("saveWorkingFile", "", newFileFullPath);
         window.ipcRenderer.once("saveWorkingFileSuccess", handleNewFileData);
-        document.getElementById('newFileModal')?.close()
+        setIsModalVisible(false)
     }
 
     const isFilenameAvailable = (filename: string) => !directoryContent.includes(addMdExtension(filename));
@@ -51,14 +53,6 @@ export function NewFileModal() {
             ...applicationConfig,
             "workingFile": data.newFilePath
         })
-/*        toast(data.message,
-            {
-                style: {
-                    borderRadius: '10px',
-                    background: '#333',
-                    color: '#fff',
-                },
-            });*/
         toast.custom(SuccessToast(data.message));
     };
     const handleDirectoryData = (_event, data) => {
@@ -85,10 +79,11 @@ export function NewFileModal() {
     };
 // TODO: Handle I/O save error when saving file
     return (
-        <div className="pt-20 pl-112 pr-32 pt-32">
-            <dialog id="newFileModal" className="modal">
+        isModalVisible &&
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overscroll-contain">
+            <div className="pt-20 pl-112 pr-32 pt-32">
                 <div className="modal-box">
-
+                    <p className="text-2xl mt-2">Create New Chat</p>
                     <form onSubmit={handleSubmit(onSubmit)}>
 
                         <input {...register("fileName", {
@@ -102,7 +97,7 @@ export function NewFileModal() {
                             },
 
                         })}
-                               className="input input-bordered w-full max-w-xs"/>
+                               className="input input-bordered w-full max-w-xs mt-5"/>
                         {errors.fileName && (
                             <label className="label">
                                 <span className="label-text-alt">
@@ -110,13 +105,13 @@ export function NewFileModal() {
                                 </span>
                             </label>
                         )}
-                        <select className="select w-full max-w-xs"
+                        <select className="select w-full max-w-xs mt-2"
                                 onChange={handleDirectoryChange}
                                 value={selectedDirectory}
                         >
                             <option disabled>Pick your file destinantion</option>
                             {
-                                Object.entries(applicationConfig["directories"]).map(([key, value ]) => (
+                                Object.entries(applicationConfig["directories"]).map(([key, value]) => (
                                         <option key={key} value={value as string}>{key} [{value}]</option>
                                     )
                                 )
@@ -126,13 +121,15 @@ export function NewFileModal() {
                         <div className="modal-action">
                             <button className="btn" type="submit" disabled={!isDirectoryContentLoaded}>Submit</button>
                             <button className="btn" type="button"
-                                    onClick={() => document.getElementById('newFileModal')?.close()}>
+                                    onClick={() => setIsModalVisible(false)}>
                                 Close
                             </button>
                         </div>
                     </form>
                 </div>
-            </dialog>
+            </div>
         </div>
-    );
+
+    )
+        ;
 }
