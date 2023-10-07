@@ -4,5 +4,4 @@ export const handleDirectoryRemove = (filename, applicationConfig, setApplicatio
         ...applicationConfig,
         "directories": newDirectories
     });
-    document.getElementById('addDirectoryModal')?.close();
 };
