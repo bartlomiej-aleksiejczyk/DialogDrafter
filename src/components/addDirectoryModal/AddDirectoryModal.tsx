@@ -3,13 +3,14 @@ import {useForm, SubmitHandler} from "react-hook-form";
 import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
 import {maxFilenameLength, validFilenameRegex} from "../../shared/validators/validators";
 import {errorMessages} from "./errorMessages";
+import {GenericModalProps} from "../../shared/interfaces/GenericModalProps";
 
 type DirectoryInput = {
     directoryName: string;
 };
 // TODO: Change modal to be more reactive
 // TODO: Change size of filepath error message
-export function AddDirectoryModal() {
+export function AddDirectoryModal({isModalVisible, setIsModalVisible}: GenericModalProps) {
     const [selectedDirectory, setSelectedDirectory] = useState("");
 
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext);
@@ -47,7 +48,7 @@ export function AddDirectoryModal() {
             ...applicationConfig,
             "directories": newDirectories
         })
-        document.getElementById('addDirectoryModal')?.close()
+        setIsModalVisible(false)
     };
 
     const openDirectoryPicker = () => {
@@ -69,8 +70,9 @@ export function AddDirectoryModal() {
     }, []);
 
     return (
-        <div className="p-8">
-            <dialog id="addDirectoryModal" className="modal">
+        isModalVisible &&
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overscroll-contain">
+            <div className="p-8">
                 <div className="modal-box">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input
@@ -110,7 +112,6 @@ export function AddDirectoryModal() {
                         <p className="mt-4">
                             Selected Directory: <strong>{selectedDirectory}</strong>
                         </p>
-                        {/* Displaying error message if validation fails */}
                         {errors.selectedDirectory && (
                             <p className="text-warning">{errors.selectedDirectory.message}</p>
                         )}
@@ -122,14 +123,15 @@ export function AddDirectoryModal() {
                             <button
                                 className="btn"
                                 type="button"
-                                onClick={() => document.getElementById("addDirectoryModal")?.close()}
+                                onClick={() => setIsModalVisible(false)}
                             >
                                 Close
                             </button>
                         </div>
                     </form>
                 </div>
-            </dialog>
+            </div>
         </div>
+
     );
 }
