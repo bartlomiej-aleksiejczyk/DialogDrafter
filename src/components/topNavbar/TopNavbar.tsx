@@ -1,4 +1,9 @@
-export function TopNavbar() {
+interface TopNavbarProps {
+    setIsNewFileModalVisible: (boolean) => void;
+    setIsAddDirectoryModalVisible: (boolean) => void;
+}
+
+export function TopNavbar({setIsNewFileModalVisible, setIsAddDirectoryModalVisible}: TopNavbarProps) {
     return (
         <div className=" font-medium navbar fixed bg-base-300 z-50 flex justify-between">
             <div className="flex space-x-8 pl-4">
@@ -9,7 +14,7 @@ export function TopNavbar() {
                 <div className="pl-20">
                     <button
                         className="btn btn-primary normal-case text-xl"
-                        onClick={()=>document.getElementById('newFileModal').showModal()}
+                        onClick={() => setIsNewFileModalVisible(true)}
                     >
                         <span>New Chat</span>
                     </button>
@@ -17,7 +22,7 @@ export function TopNavbar() {
                 <div>
                     <button
                         className="btn btn-outline btn-primary normal-case text-xl"
-                        onClick={()=>document.getElementById('addDirectoryModal').showModal()}
+                        onClick={() => setIsAddDirectoryModalVisible(true)}
                     >
                         <span>Add Directory</span>
                     </button>
