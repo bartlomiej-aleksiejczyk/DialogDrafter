@@ -8,7 +8,6 @@ export function TopNavbar({setIsNewFileModalVisible, setIsAddDirectoryModalVisib
         <div className=" font-medium navbar fixed bg-base-300 z-50 flex justify-between">
             <div className="flex space-x-8 pl-4">
                 <div>
-                    {/*<a className="btn btn-ghost normal-case text-xl">daisyUI</a>*/}
                     <span className="normal-case text-3xl font-bold">DialogDrafter</span>
                 </div>
                 <div className="pl-20">

@@ -13,6 +13,8 @@ interface RenameDirectoryModalProps extends GenericModalProps {
 type RenameInput = {
     newName: string;
 };
+// TODO: Rename working file config when manipulating
+
 export const RenameDirectoryModal = ({directoryToRename, isVisible, setIsVisible}: RenameDirectoryModalProps) => {
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext)
     const {

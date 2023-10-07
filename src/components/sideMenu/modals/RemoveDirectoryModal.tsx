@@ -6,6 +6,7 @@ import {GenericModalProps} from "../../../shared/interfaces/GenericModalProps";
 interface RemoveDirectoryModalProps extends GenericModalProps {
     directoryToRemove: string
 }
+// TODO: Remove working file config when manipulating
 
 export const RemoveDirectoryModal = ({directoryToRemove, isVisible, setIsVisible}: RemoveDirectoryModalProps) => {
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext)
