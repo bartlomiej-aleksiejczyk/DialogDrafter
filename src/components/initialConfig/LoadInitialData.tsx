@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {SetInitialData} from "./SetInitialData";
 import {defaultConfig} from "../../shared/config/defaultConfig";
 import {getPathUntilLastSlash} from "./getPathUntilLastSlash";
+import {ErrorHandler} from "../ErrorHandler/ErrorHandler";
 
 export function LoadInitialData() {
 
@@ -31,6 +32,7 @@ export function LoadInitialData() {
 
     return (
         <>
+            <ErrorHandler/>
             {(applicationConfig && workingDirectory) && <SetInitialData
                 applicationConfig={applicationConfig}
                 setApplicationConfig={setApplicationConfig}
