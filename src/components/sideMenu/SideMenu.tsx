@@ -122,7 +122,7 @@ function SideMenu() {
                 <ContextMenuBody context contextMenu={contextMenu} handleRemove={handleRemove}
                                  handleRename={handleRename}/>
                 <RemoveDirectoryModal directoryToRemove={directoryToChange.current as string}
-                                      isVisible={isRemoveModalVisible} setIsVisible={setIsRemoveModalVisible}/>
+                                      isModalVisible={isRemoveModalVisible} setIsModalVisible={setIsRemoveModalVisible}/>
                 <RenameDirectoryModal isModalVisible={isRenameModalVisible} setIsModalVisible={setIsRenameModalVisible}
                                       directoryToRename={directoryToChange.current as string}/>
             </ul>

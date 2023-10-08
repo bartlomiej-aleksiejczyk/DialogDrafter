@@ -8,21 +8,21 @@ interface RemoveDirectoryModalProps extends GenericModalProps {
 }
 // TODO: Remove working file config when manipulating
 
-export const RemoveDirectoryModal = ({directoryToRemove, isVisible, setIsVisible}: RemoveDirectoryModalProps) => {
+export const RemoveDirectoryModal = ({directoryToRemove, isModalVisible, setIsModalVisible}: RemoveDirectoryModalProps) => {
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext)
 
     const handleConfirm = async () => {
-        setIsVisible(false);
+        setIsModalVisible(false);
         handleDirectoryRemove(directoryToRemove, applicationConfig, setApplicationConfig);
     };
 
     const handleClose = () => {
-        setIsVisible(false);
+        setIsModalVisible(false);
     };
 
     return (
         <>
-            {isVisible && (
+            {isModalVisible && (
                 <dialog className="modal modal-bottom sm:modal-middle" open>
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Confirmation</h3>
