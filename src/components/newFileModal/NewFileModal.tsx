@@ -1,13 +1,12 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {useForm, SubmitHandler} from "react-hook-form"
 import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
-import {outputOnlyMdFiles} from "../sideMenu/outputOnlyMdFiles";
 import {addMdExtension} from "../../shared/utils/addMdExtension";
 import {joinPath} from "../../shared/utils/joinPath";
-import {toast} from "react-hot-toast";
-import {SuccessToast} from "../../shared/toasts/SuccessToast";
 import {maxFilenameLength, validFilenameRegex} from "../../shared/validators/validators";
 import {GenericModalProps} from "../../shared/interfaces/GenericModalProps";
+import {useFileManagement} from "./useFileManagment";
+import {useDirectoryData} from "./useDirectoryData";
 
 type NewFileInput = {
     fileName: string
@@ -22,54 +21,28 @@ export function NewFileModal({isModalVisible, setIsModalVisible}: GenericModalPr
         setApplicationConfig,
         workingDirectory,
     } = useContext(ApplicationConfigContext)
-    const [selectedDirectory, setSelectedDirectory] = useState<string>(workingDirectory);
-    const [directoryContent, setDirectoryContent] = useState<string[]>([]);
-    const [isDirectoryContentLoaded, setIsDirectoryContentLoaded] = useState<boolean>(false);
-
+    const { directoryContent, isDirectoryContentLoaded } = useDirectoryData(workingDirectory);
+    const { createNewFile } = useFileManagement(applicationConfig, setApplicationConfig);
+    const [selectedDirectory, setSelectedDirectory] = useState<string>(workingDirectory); // Reinstated
     const {
         register,
         handleSubmit,
-        formState: {errors},
+        formState: { errors },
         clearErrors,
-    } = useForm<NewFileInput>()
-
-    const onSubmit: SubmitHandler<NewFileInput> = (filename) => {
-        const newFileFullPath = joinPath([selectedDirectory, addMdExtension(filename.fileName)], platform);
-        window.ipcRenderer.send("saveWorkingFile", "", newFileFullPath);
-        window.ipcRenderer.once("saveWorkingFileSuccess", handleNewFileData);
-        setIsModalVisible(false)
-    }
+    } = useForm<NewFileInput>();
 
     const isFilenameAvailable = (filename: string) => !directoryContent.includes(addMdExtension(filename));
 
     const handleDirectoryChange = (event) => {
         clearErrors("fileName");
-        setIsDirectoryContentLoaded(false);
         setSelectedDirectory(event.target.value);
     }
-    const handleNewFileData = (_event, data) => {
-        console.log(data)
-        setApplicationConfig({
-            ...applicationConfig,
-            "workingFile": data.newFilePath
-        })
-        toast.custom(SuccessToast(data.message));
-    };
-    const handleDirectoryData = (_event, data) => {
-        const processedData = outputOnlyMdFiles(data);
-        setDirectoryContent(processedData);
-        setIsDirectoryContentLoaded(!!processedData);
+
+    const onSubmit: SubmitHandler<NewFileInput> = (filename) => {
+        const newFileFullPath = joinPath([selectedDirectory, addMdExtension(filename.fileName)], platform);
+        createNewFile(newFileFullPath);
+        setIsModalVisible(false);
     }
-
-    useEffect(() => {
-
-        window.ipcRenderer.send("loadFilenames", selectedDirectory);
-        window.ipcRenderer.on("filenamesData", handleDirectoryData);
-        return () => {
-            window.ipcRenderer.off("filenamesData", handleDirectoryData);
-            console.log(window.ipcRenderer.listeners("filenamesData"))
-        };
-    }, [selectedDirectory]);
 
     const errorMessages = {
         required: "Filename is required.",
@@ -77,7 +50,7 @@ export function NewFileModal({isModalVisible, setIsModalVisible}: GenericModalPr
         maxLength: `Filename must be shorter than ${maxFilenameLength} characters.`,
         isFilenameAvailable: "Filename already exists. Choose a different name."
     };
-// TODO: Handle I/O save error when saving file
+
     return (
         isModalVisible &&
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overscroll-contain">
@@ -130,6 +103,5 @@ export function NewFileModal({isModalVisible, setIsModalVisible}: GenericModalPr
             </div>
         </div>
 
-    )
-        ;
+    );
 }
