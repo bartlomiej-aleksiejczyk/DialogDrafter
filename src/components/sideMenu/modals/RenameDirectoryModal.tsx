@@ -15,7 +15,7 @@ type RenameInput = {
 };
 // TODO: Rename working file config when manipulating
 
-export const RenameDirectoryModal = ({directoryToRename, isVisible, setIsVisible}: RenameDirectoryModalProps) => {
+export const RenameDirectoryModal = ({directoryToRename, isModalVisible, setIsModalVisible}: RenameDirectoryModalProps) => {
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext)
     const {
         register,
@@ -26,15 +26,15 @@ export const RenameDirectoryModal = ({directoryToRename, isVisible, setIsVisible
     const isDirectoryNameAvailable = (directoryName: string) => !Object.keys(directories).includes(directoryName);
 
     const handleClose = () => {
-        setIsVisible(false);
+        setIsModalVisible(false);
     };
     const onSubmit: SubmitHandler<RenameInput> = (data) => {
         console.log(data)
         handleDirectoryRename(directoryToRename, data.newName, applicationConfig, setApplicationConfig)
-        setIsVisible(false)
+        setIsModalVisible(false)
     };
     return (
-        isVisible &&
+        isModalVisible &&
         <>
             <dialog className="modal modal-bottom sm:modal-middle" open>
                 <div className="modal-box">
