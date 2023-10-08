@@ -5,7 +5,7 @@ import {ErrorToast} from "../../shared/toasts/ErrorToast";
 export function ErrorHandler() {
     const handleNewFileData = (_event, data) => {
         console.log(`error` + data)
-        toast.custom(ErrorToast(data.message));
+        toast.custom(ErrorToast(data));
     }
     useEffect(() => {
         window.ipcRenderer.on("error", handleNewFileData);

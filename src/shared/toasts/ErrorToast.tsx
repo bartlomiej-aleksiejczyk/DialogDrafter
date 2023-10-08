@@ -13,7 +13,7 @@ export const ErrorToast = (t) => (
         </svg>
         <div>
             <h3 className="font-bold">Error!</h3>
-            <div className="text-xs">{t.message}</div>
+            <div className="text-xs">{t}</div>
         </div>
         <button onClick={() => toast.remove(t.id)} className="btn btn-sm">
             Close
