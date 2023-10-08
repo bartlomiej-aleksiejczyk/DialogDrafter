@@ -45,6 +45,7 @@ function SideMenu() {
     }, [visibleDropdown]);
 
     useEffect(() => {
+        setDirectoryContent([])
         window.ipcRenderer.send("loadFilenames", workingDirectory);
         window.ipcRenderer.once("filenamesData", handleFileData);
         return () => {
@@ -122,7 +123,7 @@ function SideMenu() {
                                  handleRename={handleRename}/>
                 <RemoveDirectoryModal directoryToRemove={directoryToChange.current as string}
                                       isVisible={isRemoveModalVisible} setIsVisible={setIsRemoveModalVisible}/>
-                <RenameDirectoryModal isVisible={isRenameModalVisible} setIsVisible={setIsRenameModalVisible}
+                <RenameDirectoryModal isModalVisible={isRenameModalVisible} setIsModalVisible={setIsRenameModalVisible}
                                       directoryToRename={directoryToChange.current as string}/>
             </ul>
         </div>
