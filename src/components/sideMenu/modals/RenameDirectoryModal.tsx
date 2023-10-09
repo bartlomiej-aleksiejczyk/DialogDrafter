@@ -15,7 +15,7 @@ type RenameInput = {
 };
 // TODO: Rename working file config when manipulating
 
-export const RenameDirectoryModal = ({directoryToRename, isModalVisible, setIsModalVisible}: RenameDirectoryModalProps) => {
+export const RenameDirectoryModal = ({directoryToRename, setIsModalVisible}: RenameDirectoryModalProps) => {
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext)
     const {
         register,
@@ -34,8 +34,6 @@ export const RenameDirectoryModal = ({directoryToRename, isModalVisible, setIsMo
         setIsModalVisible(false)
     };
     return (
-        isModalVisible &&
-        <>
             <dialog className="modal modal-bottom sm:modal-middle" open>
                 <div className="modal-box">
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -69,6 +67,5 @@ export const RenameDirectoryModal = ({directoryToRename, isModalVisible, setIsMo
                     </form>
                 </div>
             </dialog>
-        </>
     )
 }

@@ -6,9 +6,13 @@ import {GenericModalProps} from "../../../shared/interfaces/GenericModalProps";
 interface RemoveDirectoryModalProps extends GenericModalProps {
     directoryToRemove: string
 }
+
 // TODO: Remove working file config when manipulating
 
-export const RemoveDirectoryModal = ({directoryToRemove, isModalVisible, setIsModalVisible}: RemoveDirectoryModalProps) => {
+export const RemoveDirectoryModal = ({
+                                         directoryToRemove,
+                                         setIsModalVisible
+                                     }: RemoveDirectoryModalProps) => {
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext)
 
     const handleConfirm = async () => {
@@ -22,18 +26,16 @@ export const RemoveDirectoryModal = ({directoryToRemove, isModalVisible, setIsMo
 
     return (
         <>
-            {isModalVisible && (
-                <dialog className="modal modal-bottom sm:modal-middle" open>
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">Confirmation</h3>
-                        <p className="py-4">{"MESSAGE_TEXT_TODO"}</p>
-                        <div className="modal-action">
-                            <button className="btn" onClick={handleConfirm}>Confirm</button>
-                            <button className="btn" onClick={handleClose}>Close</button>
-                        </div>
+            <dialog className="modal modal-bottom sm:modal-middle" open>
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Confirmation</h3>
+                    <p className="py-4">{"MESSAGE_TEXT_TODO"}</p>
+                    <div className="modal-action">
+                        <button className="btn" onClick={handleConfirm}>Confirm</button>
+                        <button className="btn" onClick={handleClose}>Close</button>
                     </div>
-                </dialog>
-            )}
+                </div>
+            </dialog>
         </>
     );
 };

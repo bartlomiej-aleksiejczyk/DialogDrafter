@@ -14,7 +14,7 @@ type NewFileInput = {
 
 // TODO: Rename methods to make things more logical
 
-export function NewFileModal({isModalVisible, setIsModalVisible}: GenericModalProps) {
+export function NewFileModal({setIsModalVisible}: GenericModalProps) {
     const {
         platform,
         applicationConfig,
@@ -52,7 +52,6 @@ export function NewFileModal({isModalVisible, setIsModalVisible}: GenericModalPr
     };
 
     return (
-        isModalVisible &&
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overscroll-contain">
             <div className="pt-20 pl-112 pr-32 pt-32">
                 <div className="modal-box">
@@ -102,6 +101,5 @@ export function NewFileModal({isModalVisible, setIsModalVisible}: GenericModalPr
                 </div>
             </div>
         </div>
-
     );
 }

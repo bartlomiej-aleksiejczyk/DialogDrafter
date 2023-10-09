@@ -10,7 +10,7 @@ type DirectoryInput = {
 };
 // TODO: Change modal to be more reactive
 // TODO: Change size of filepath error message
-export function AddDirectoryModal({isModalVisible, setIsModalVisible}: GenericModalProps) {
+export function AddDirectoryModal({setIsModalVisible}: GenericModalProps) {
     const [selectedDirectory, setSelectedDirectory] = useState("");
 
     const {applicationConfig, setApplicationConfig} = useContext(ApplicationConfigContext);
@@ -70,7 +70,6 @@ export function AddDirectoryModal({isModalVisible, setIsModalVisible}: GenericMo
     }, []);
 
     return (
-        isModalVisible &&
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overscroll-contain">
             <div className="p-8">
                 <div className="modal-box">
@@ -132,6 +131,5 @@ export function AddDirectoryModal({isModalVisible, setIsModalVisible}: GenericMo
                 </div>
             </div>
         </div>
-
     );
 }

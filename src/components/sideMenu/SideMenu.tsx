@@ -13,7 +13,7 @@ import {RenameDirectoryModal} from "./modals/RenameDirectoryModal";
 
 
 function SideMenu() {
-    // TODO: Add remove/rename directory feature
+    // TODO: Add remove/rename file feature
     const directoryToChange = useRef<string | null>(null);
     const [directoryContent, setDirectoryContent] = useState<string[]>([]);
     const [visibleDropdown, setVisibleDropdown] = useState<string | null>(null);
@@ -45,7 +45,9 @@ function SideMenu() {
     }, [visibleDropdown]);
 
     useEffect(() => {
+        // TODO: Check why  this useeffect triggers two times
         setDirectoryContent([])
+        console.log("Effect running due to changes in: ", workingDirectory, applicationConfig);
         window.ipcRenderer.send("loadFilenames", workingDirectory);
         window.ipcRenderer.once("filenamesData", handleFileData);
         return () => {
@@ -121,10 +123,10 @@ function SideMenu() {
                 })}
                 <ContextMenuBody context contextMenu={contextMenu} handleRemove={handleRemove}
                                  handleRename={handleRename}/>
-                <RemoveDirectoryModal directoryToRemove={directoryToChange.current as string}
-                                      isModalVisible={isRemoveModalVisible} setIsModalVisible={setIsRemoveModalVisible}/>
-                <RenameDirectoryModal isModalVisible={isRenameModalVisible} setIsModalVisible={setIsRenameModalVisible}
-                                      directoryToRename={directoryToChange.current as string}/>
+                {isRemoveModalVisible && <RemoveDirectoryModal directoryToRemove={directoryToChange.current as string}
+                                                               setIsModalVisible={setIsRemoveModalVisible}/>}
+                {isRenameModalVisible && <RenameDirectoryModal setIsModalVisible={setIsRenameModalVisible}
+                                                               directoryToRename={directoryToChange.current as string}/>}
             </ul>
         </div>
     );

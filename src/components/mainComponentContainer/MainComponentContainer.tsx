@@ -55,9 +55,10 @@ export function MainComponentContainer() {
                 <SideMenu/>
                 <ChatLogBoxContainer/>
             </div>
-            <NewFileModal isModalVisible={isNewFileModalVisible} setIsModalVisible={setIsNewFileModalVisible}/>
-            <AddDirectoryModal isModalVisible={isAddDirectoryModalVisible}
-                               setIsModalVisible={setIsAddDirectoryModalVisible}/>
+            {isNewFileModalVisible &&
+                <NewFileModal setIsModalVisible={setIsNewFileModalVisible}/>}
+            {isAddDirectoryModalVisible && <AddDirectoryModal
+                setIsModalVisible={setIsAddDirectoryModalVisible}/>}
         </div>
     )
 }
