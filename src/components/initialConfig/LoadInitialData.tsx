@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {SetInitialData} from "./SetInitialData";
 import {defaultConfig} from "../../shared/config/defaultConfig";
 import {getPathUntilLastSlash} from "./getPathUntilLastSlash";
-import {ErrorHandler} from "../ErrorHandler/ErrorHandler";
+import {GenericErrorHandler} from "../ErrorHandler/GenericErrorHandler";
 
 export function LoadInitialData() {
 
@@ -29,10 +29,9 @@ export function LoadInitialData() {
             window.ipcRenderer.removeAllListeners('send-platform');
         };
     }, []);
-
     return (
         <>
-            <ErrorHandler/>
+            <GenericErrorHandler/>
             {(applicationConfig && workingDirectory) && <SetInitialData
                 applicationConfig={applicationConfig}
                 setApplicationConfig={setApplicationConfig}
