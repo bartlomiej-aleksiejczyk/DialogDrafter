@@ -4,13 +4,15 @@ import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContex
 import {chatLogToMarkdown} from "./utils/chatToMarkdown";
 
 // TODO: Make single question/answer editable
-// TODO: Change chatlog appearance
+// TODO: Change chatlog appearance, add responsiveness
 
 // TODO: Change empty chatLog appearance, center out stuff
 // TODO: Add title on top
 // TODO: set fixed width for boxes
 
 // TODO: Remove "hidden" modals on bottom of container
+
+// TODO: Check what will happen when process crashes during write "Changes are written to disk atomically, so if the process crashes during a write, it will not corrupt the existing config."
 
 export const ChatLogBoxContent = ({filecontent, setFileContent}) => {
     const [newQuestion, setNewQuestion] = useState('');
