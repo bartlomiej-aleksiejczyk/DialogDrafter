@@ -91,7 +91,7 @@ ipcMain.on('loadFilenames', (event, loadDirectoryPath) => {
         fs.readdir(loadDirectoryPath, (err, filenames) => {
             if (err) {
                 console.error('An error occurred reading the directory:', err);
-                event.sender.send('error', 'An error occurred loading the filenames.');
+                event.sender.send('error', 'An error occurred loading the filenames, cannot access directory.');
             } else {
                 event.sender.send('filenamesData', filenames);
             }
