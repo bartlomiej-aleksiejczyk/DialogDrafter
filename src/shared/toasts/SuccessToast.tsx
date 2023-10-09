@@ -15,7 +15,7 @@ export const SuccessToast = (message) => (
             <h3 className="font-bold">Success!</h3>
             <div className="text-xs">{message}</div>
         </div>
-        <button onClick={() => toast.remove(message.id)} className="btn btn-sm">
+        <button onClick={() => toast.remove(message.id)} className="btn btn-sm btn-outline">
             Close
         </button>
     </div>

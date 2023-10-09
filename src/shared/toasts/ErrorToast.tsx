@@ -15,7 +15,7 @@ export const ErrorToast = (t) => (
             <h3 className="font-bold">Error!</h3>
             <div className="text-xs">{t}</div>
         </div>
-        <button onClick={() => toast.remove(t.id)} className="btn btn-sm">
+        <button onClick={() => toast.remove(t.id)} className="btn btn-sm btn-outline">
             Close
         </button>
     </div>
