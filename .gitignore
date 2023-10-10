@@ -24,3 +24,6 @@ release
 *.njsproj
 *.sln
 *.sw?
+
+# Config file
+dialogDrafterSettings.json
