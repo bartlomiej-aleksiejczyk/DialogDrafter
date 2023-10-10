@@ -47,9 +47,10 @@ function SideMenu() {
     useEffect(() => {
         // TODO: Check why  this useeffect triggers two times
         setDirectoryContent([])
+        if (!workingDirectory) return
         console.log("Effect running due to changes in: ", workingDirectory, applicationConfig);
-        window.ipcRenderer.send("loadFilenames", workingDirectory);
-        window.ipcRenderer.once("filenamesData", handleFileData);
+        window.ipcRenderer.send("load-filenames", workingDirectory);
+        window.ipcRenderer.once("filenames-data", handleFileData);
         return () => {
         };
     }, [workingDirectory, applicationConfig]);

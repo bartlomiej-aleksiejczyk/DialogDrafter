@@ -28,7 +28,7 @@ function createWindow() {
 }
 
 // IPC Listeners for File Operations
-ipcMain.on('saveChatLog', (event, data, saveFilePath) => {
+ipcMain.on('save-chat-log', (event, data, saveFilePath) => {
     fs.writeFile(saveFilePath, JSON.stringify(data), err => {
         if (err) {
             console.error('An error occurred writing the file:', err);
@@ -39,61 +39,58 @@ ipcMain.on('saveChatLog', (event, data, saveFilePath) => {
     });
 });
 
-ipcMain.on('loadConfigFile', (event, loadFilePath) => {
+ipcMain.on('load-config-file', (event, loadFilePath) => {
     fs.readFile(loadFilePath, 'utf-8', (err, data) => {
         if (err) {
             console.error('An error occurred reading the file:', err);
-            event.sender.send('error', 'An error occurred loading the config file.');
+            event.sender.send('config-error', 'An error occurred loading the config file. Config was reset to default.');
         } else {
-            event.sender.send('configData', data);
+            event.sender.send('config-data', data);
         }
     });
 });
 
-ipcMain.on('saveWorkingFile', (event, data, saveFilePath) => {
+ipcMain.on('save-working-file', (event, data, saveFilePath) => {
     fs.writeFile(saveFilePath, data, err => {
         if (err) {
             console.error('An error occurred writing the file:', err);
             event.sender.send('error', 'An error occurred saving the working file.');
         } else {
-            event.sender.send('saveWorkingFileSuccess', {message: 'File saved successfully', newFilePath: saveFilePath});
+            event.sender.send('save-working-file-success', {message: 'File saved successfully', newFilePath: saveFilePath});
         }
     });
 });
-ipcMain.on('saveConfigFile', (event, data, saveFilePath) => {
+ipcMain.on("save-config-file", (event, data, saveFilePath) => {
     fs.writeFile(saveFilePath, JSON.stringify(data), err => {
         if (err) {
             console.error('An error occurred writing the config:', err);
             event.sender.send('error', 'An error occurred saving the config.');
         } else {
-            event.sender.send('saveConfigFileSuccess', {message: 'Config saved successfully', newFilePath: saveFilePath});
+            event.sender.send("save-config-file-success", {message: 'Config saved successfully', newFilePath: saveFilePath});
         }
     });
 });
 
-ipcMain.on('loadWorkingFile', (event, loadFilePath) => {
-    console.log(loadFilePath)
-    console.log("TEST RN")
-
+ipcMain.on('load-working-file', (event, loadFilePath) => {
     fs.readFile(loadFilePath, 'utf-8', (err, data) => {
 
         if (err) {
             console.error('An error occurred reading the file:', err);
-            event.sender.send('error', 'An error occurred loading the working file.');
+            event.sender.send('config-error', 'An error occurred loading the working file.');
         } else {
-            event.sender.send('workingFile', data);
+            event.sender.send('working-file', data);
         }
     });
 });
 
 
-ipcMain.on('loadFilenames', (event, loadDirectoryPath) => {
+ipcMain.on('load-filenames', (event, loadDirectoryPath) => {
         fs.readdir(loadDirectoryPath, (err, filenames) => {
             if (err) {
                 console.error('An error occurred reading the directory:', err);
                 event.sender.send('error', 'An error occurred loading the filenames, cannot access directory.');
             } else {
-                event.sender.send('filenamesData', filenames);
+                event.sender.send('filenames-data', filenames);
             }
         });
     }
@@ -130,7 +127,7 @@ app.on('activate', () => {
 });
 
 //Debug
-console.log(ipcMain.listenerCount('filenamesData'));
-console.log(ipcMain.listeners('filenamesData'));
+console.log(ipcMain.listenerCount('filenames-data'));
+console.log(ipcMain.listeners('filenames-data'));
 
 app.whenReady().then(createWindow);

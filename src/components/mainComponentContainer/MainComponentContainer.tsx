@@ -33,8 +33,8 @@ export function MainComponentContainer() {
 
     useEffect(() => {
         console.log(applicationConfig)
-        window.ipcRenderer.send("saveConfigFile", applicationConfig, defaultConfig.SETTINGS_PATH);
-        window.ipcRenderer.once('saveConfigFileSuccess', (event, data) => {
+        window.ipcRenderer.send("save-config-file", applicationConfig, defaultConfig.SETTINGS_PATH);
+        window.ipcRenderer.once('"save-config-file-success"', (event, data) => {
             console.log(data.message);
             const {directories: oldDirectories, workingFile: oldWorkingFile, ...oldConfig} = prevConfig.current;
             const {directories: newDirectories, workingFile: newWorkingFile, ...newConfig} = applicationConfig;

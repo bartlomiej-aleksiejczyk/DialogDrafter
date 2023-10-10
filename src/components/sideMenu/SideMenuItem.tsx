@@ -14,7 +14,7 @@ export function SideMenuItem ({fileName, directory}: SideMenuItemProps) {
     const handleSelectFile = () => {
         setApplicationConfig({
             ...applicationConfig,
-            "workingFile": newWorkingFilePath
+            "working-file": newWorkingFilePath
         })
     };
 
@@ -22,7 +22,7 @@ export function SideMenuItem ({fileName, directory}: SideMenuItemProps) {
         <li className="pt-2">
             <a onClick={() => handleSelectFile()}
                className={`${
-               (newWorkingFilePath === applicationConfig["workingFile"] &&
+               (newWorkingFilePath === applicationConfig["working-file"] &&
                    directory === workingDirectory) ? "active" : ""} truncate w-52 block 
                            scroll-on-hover`}>
                 {fileName}

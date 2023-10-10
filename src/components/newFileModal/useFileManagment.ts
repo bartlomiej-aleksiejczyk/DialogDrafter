@@ -6,14 +6,14 @@ export const useFileManagement = (applicationConfig, setApplicationConfig) => {
         console.log(data);
         setApplicationConfig({
             ...applicationConfig,
-            "workingFile": data.newFilePath
+            "working-file": data.newFilePath
         });
         toast.custom(SuccessToast(data.message));
     };
 
     const createNewFile = (filePath) => {
-        window.ipcRenderer.send("saveWorkingFile", "", filePath);
-        window.ipcRenderer.once("saveWorkingFileSuccess", handleNewFileData);
+        window.ipcRenderer.send("save-working-file", "", filePath);
+        window.ipcRenderer.once("save-working-file-success", handleNewFileData);
     };
     return { createNewFile };
 };

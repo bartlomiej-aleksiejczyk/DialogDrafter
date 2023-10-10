@@ -9,12 +9,15 @@ export const useDirectoryData = (selectedDirectory) => {
     const handleDirectoryData = (_event, data) => {
         const processedData = outputOnlyMdFiles(data);
         setDirectoryContent(processedData);
-        setIsDirectoryContentLoaded(Boolean(processedData.length));
+        setIsDirectoryContentLoaded(Boolean(processedData));
     };
 
     useEffect(() => {
-        window.ipcRenderer.send("loadFilenames", selectedDirectory);
-        window.ipcRenderer.once("filenamesData", handleDirectoryData);
+        setIsDirectoryContentLoaded(false)
+        if (!selectedDirectory) return
+        // TODO: POTENTIAL MEMORY LEAK HERE filenames-data should not be recycled
+        window.ipcRenderer.send("load-filenames", selectedDirectory);
+        window.ipcRenderer.once("filenames-data", handleDirectoryData);
     }, [selectedDirectory]);
 
     return { directoryContent, isDirectoryContentLoaded };
