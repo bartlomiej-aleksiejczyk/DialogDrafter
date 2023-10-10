@@ -9,14 +9,14 @@ export function ChatLogBoxLoader() {
     // TODO: handle errors hen loading non-existent file
     // TODO: validate if markdown file has good format
     useEffect(() => {
-        const filePath = applicationConfig["workingFile"]
-        window.ipcRenderer.send("loadWorkingFile", filePath)
+        const filePath = applicationConfig["working-file"]
+        if (!filePath) return;
+        window.ipcRenderer.send("load-working-file", filePath)
         const handleFileData = (_event, data) => {
             setFileContent(markdownToChatLogParser(data))
         };
-        window.ipcRenderer.on("workingFile", handleFileData);
+        window.ipcRenderer.once("working-file", handleFileData);
         return () => {
-            window.ipcRenderer.removeListener("workingFile", handleFileData);
         };
     }, [applicationConfig]);
 
