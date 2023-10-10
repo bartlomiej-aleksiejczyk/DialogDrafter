@@ -13,7 +13,9 @@ type NewFileInput = {
 }
 
 // TODO: Rename methods to make things more logical
-
+// TODO: Disable ability to create new file when there are no directory
+// TODO: Cannot create new chat when there is no working file
+// TODO: Fix filename change of size when error occurred
 export function NewFileModal({setIsModalVisible}: GenericModalProps) {
     const {
         platform,
@@ -21,13 +23,14 @@ export function NewFileModal({setIsModalVisible}: GenericModalProps) {
         setApplicationConfig,
         workingDirectory,
     } = useContext(ApplicationConfigContext)
-    const { directoryContent, isDirectoryContentLoaded } = useDirectoryData(workingDirectory);
-    const { createNewFile } = useFileManagement(applicationConfig, setApplicationConfig);
+    const {createNewFile} = useFileManagement(applicationConfig, setApplicationConfig);
     const [selectedDirectory, setSelectedDirectory] = useState<string>(workingDirectory); // Reinstated
+    const {directoryContent, isDirectoryContentLoaded} = useDirectoryData(selectedDirectory);
+
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
         clearErrors,
     } = useForm<NewFileInput>();
 
@@ -81,7 +84,8 @@ export function NewFileModal({setIsModalVisible}: GenericModalProps) {
                                 onChange={handleDirectoryChange}
                                 value={selectedDirectory}
                         >
-                            <option disabled>Pick your file destinantion</option>
+                            <option disabled>Pick your file destination</option>
+                            <option key={""}></option>
                             {
                                 Object.entries(applicationConfig["directories"]).map(([key, value]) => (
                                         <option key={key} value={value as string}>{key} [{value}]</option>
