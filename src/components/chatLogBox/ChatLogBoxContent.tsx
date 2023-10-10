@@ -10,8 +10,6 @@ import {chatLogToMarkdown} from "./utils/chatToMarkdown";
 // TODO: Add title on top
 // TODO: set fixed width for boxes
 
-// TODO: Remove "hidden" modals on bottom of container
-
 // TODO: Check what will happen when process crashes during write "Changes are written to disk atomically, so if the process crashes during a write, it will not corrupt the existing config."
 
 export const ChatLogBoxContent = ({filecontent, setFileContent}) => {
@@ -28,8 +26,8 @@ export const ChatLogBoxContent = ({filecontent, setFileContent}) => {
             setNewAnswer('');
             setShowError(false);
 
-            window.ipcRenderer.send("saveWorkingFile", chatLogToMarkdown(newFileContent), applicationConfig["workingFile"]);
-            window.ipcRenderer.once('saveWorkingFileSuccess', (event, data) => {
+            window.ipcRenderer.send("save-working-file", chatLogToMarkdown(newFileContent), applicationConfig["working-file"]);
+            window.ipcRenderer.once('save-working-file-success', (event, data) => {
                 console.log(data.message);
             });
         } else {
