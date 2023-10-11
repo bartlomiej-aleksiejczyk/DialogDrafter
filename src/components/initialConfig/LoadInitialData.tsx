@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {SetInitialData} from "./SetInitialData";
 import {defaultConfig} from "../../shared/config/defaultConfig";
-import {getPathUntilLastSlash} from "./getPathUntilLastSlash";
+import {getPathUntilLastSlash} from "../../shared/utils/getPathUntilLastSlash";
 import {GenericErrorHandler} from "../ErrorHandler/GenericErrorHandler";
 import {toast} from "react-hot-toast";
 import {ErrorToast} from "../../shared/toasts/ErrorToast";
@@ -35,7 +35,7 @@ export function LoadInitialData() {
             console.log(newData)
             window.ipcRenderer.send("save-config-file", newData, defaultConfig.SETTINGS_PATH);
 
-            window.ipcRenderer.once("save-config-file-success", (event, data) => {
+            window.ipcRenderer.once("save-config-file-success", (_event, _data) => {
                 //toast.custom(SuccessToast(data.message));
                 setApplicationConfig(newData);
                 setWorkingDirectory("");
