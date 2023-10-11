@@ -7,7 +7,6 @@ interface RemoveDirectoryModalProps extends GenericModalProps {
     directoryToRemove: string
 }
 
-// TODO: Remove working file config when manipulating
 
 export const RemoveDirectoryModal = ({
                                          directoryToRemove,

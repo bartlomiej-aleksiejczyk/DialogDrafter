@@ -10,7 +10,12 @@ import {DropdownPortal} from "./dropdownPortal/DropdownPortal";
 import {handleButtonClick} from "./dropdownPortal/handleButtonClick";
 import {RemoveDirectoryModal} from "./modals/RemoveDirectoryModal";
 import {RenameDirectoryModal} from "./modals/RenameDirectoryModal";
+import {isString} from "../../shared/utils/isString";
 
+const MODALS = {
+    REMOVE: 'REMOVE',
+    RENAME: 'RENAME',
+};
 
 function SideMenu() {
     // TODO: Add remove/rename file feature
@@ -18,15 +23,37 @@ function SideMenu() {
     const [directoryContent, setDirectoryContent] = useState<string[]>([]);
     const [visibleDropdown, setVisibleDropdown] = useState<string | null>(null);
 
-    const [isRemoveModalVisible, setIsRemoveModalVisible] = useState(false);
-    const [isRenameModalVisible, setIsRenameModalVisible] = useState(false);
-
     const [contextMenu, setContextMenu] = useState<ContextMenu>({
         x: 0,
         y: 0,
         isVisible: false,
         directoryKey: ''
     });
+
+    const [visibleModal, setVisibleModal] = useState(null);
+
+    const handleModalOpen = (modalType) => {
+        directoryToChange.current = visibleDropdown;
+        setVisibleDropdown(null);
+        setVisibleModal(modalType);
+    };
+    const handleModalClose = () => setVisibleModal(null);
+
+
+
+    const modals = {
+        [MODALS.REMOVE]: visibleModal === MODALS.REMOVE && isString(directoryToChange.current) &&
+        <RemoveDirectoryModal
+            directoryToRemove={directoryToChange.current}
+            setIsModalVisible={handleModalClose}
+        />,
+        [MODALS.RENAME]: visibleModal === MODALS.RENAME && isString(directoryToChange.current) &&
+        <RenameDirectoryModal
+            setIsModalVisible={handleModalClose}
+            directoryToRename={directoryToChange.current}
+        />,
+    };
+
     const [position, setPosition] = useState({x: 0, y: 0});
     const dropdownRef = useRef(null);
     const buttonRef = useRef(null);
@@ -36,13 +63,6 @@ function SideMenu() {
     const handleFileData = (_event, data) => {
         setDirectoryContent(outputOnlyMdFiles(data));
     };
-
-    useEffect(() => {
-        const handleGlobalClick = (e) => {
-        };
-        window.addEventListener('click', handleGlobalClick);
-        return () => window.removeEventListener('click', handleGlobalClick);
-    }, [visibleDropdown]);
 
     useEffect(() => {
         // TODO: Check why  this useeffect triggers two times
@@ -57,19 +77,6 @@ function SideMenu() {
     const handleSelectDirectory = (directoryPath) => {
         setWorkingDirectory(directoryPath)
     };
-
-    const handleClickOnRemoveDirectory = () => {
-        directoryToChange.current = visibleDropdown as string;
-        console.log(isRemoveModalVisible)
-        setVisibleDropdown(null)
-        setIsRemoveModalVisible(true)
-    }
-    const handleClickOnRenameDirectory = () => {
-        directoryToChange.current = visibleDropdown as string;
-        console.log(isRemoveModalVisible)
-        setVisibleDropdown(null)
-        setIsRenameModalVisible(true)
-    }
 
     return (
         <div className="inline fixed top-0 left-0 h-screen bg-base-200 text-base-content pt-16 overflow-hidden ">
@@ -110,11 +117,11 @@ function SideMenu() {
                                         ref={dropdownRef}>
                                         <li><a onClick={(e) => {
                                             e.stopPropagation();
-                                            handleClickOnRenameDirectory();
+                                            handleModalOpen("RENAME");
                                         }}>Rename item</a></li>
                                         <li><a onClick={(e) => {
                                             e.stopPropagation();
-                                            handleClickOnRemoveDirectory();
+                                            handleModalOpen("REMOVE");
                                         }}>Remove item</a></li>
                                     </ul>
                                 </DropdownPortal>
@@ -124,10 +131,8 @@ function SideMenu() {
                 })}
                 <ContextMenuBody context contextMenu={contextMenu} handleRemove={handleRemove}
                                  handleRename={handleRename}/>
-                {isRemoveModalVisible && <RemoveDirectoryModal directoryToRemove={directoryToChange.current as string}
-                                                               setIsModalVisible={setIsRemoveModalVisible}/>}
-                {isRenameModalVisible && <RenameDirectoryModal setIsModalVisible={setIsRenameModalVisible}
-                                                               directoryToRename={directoryToChange.current as string}/>}
+                {modals[MODALS.REMOVE]}
+                {modals[MODALS.RENAME]}
             </ul>
         </div>
     );
