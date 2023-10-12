@@ -4,7 +4,7 @@ import { MainComponentContainer } from "../mainComponentContainer/MainComponentC
 import { validateInitialData } from "./validateInitialData";
 
 interface SetInitialDataProps {
-	applicationConfig: Record<string, string>;
+	applicationConfig: Record<string, unknown>;
 	setApplicationConfig: Dispatch<SetStateAction<Record<string, unknown>>>;
 	workingDirectory: string;
 	setWorkingDirectory: Dispatch<SetStateAction<string>>;
