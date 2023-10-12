@@ -3,9 +3,8 @@ import {getPathUntilLastSlash} from "../../../shared/utils/getPathUntilLastSlash
 export const handleDirectoryRemove = (directoryName, applicationConfig, setApplicationConfig) => {
 
     const { [directoryName]: DirectoryToRemove, ...newDirectories } = applicationConfig["directories"];
-    let newWorkingFile = applicationConfig["workingFile"]
-    if(getPathUntilLastSlash(newWorkingFile) === DirectoryToRemove) newWorkingFile = ""
-
+    const newWorkingFile = (getPathUntilLastSlash(applicationConfig["workingFile"]) === DirectoryToRemove ?
+    "" : applicationConfig["workingFile"])
     setApplicationConfig({
         ...applicationConfig,
         "workingFile": newWorkingFile,
