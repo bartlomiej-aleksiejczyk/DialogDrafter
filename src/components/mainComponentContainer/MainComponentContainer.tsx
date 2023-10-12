@@ -5,11 +5,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { NewFileModal } from "../newFileModal/NewFileModal";
 import { AddDirectoryModal } from "../addDirectoryModal/AddDirectoryModal";
 import { defaultConfig } from "../../shared/config/defaultConfig";
-
 import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigContext";
-import { toast } from "react-hot-toast";
-import { SuccessToast } from "../../shared/toasts/SuccessToast";
-import _ from "lodash";
+import { checkForSuccessToast } from "./checkForSuccessToast";
 
 export function MainComponentContainer() {
 	//TODO: Add handling for specific changes in config. For example "Added new directory" instead of "Config successfully changed"
@@ -35,24 +32,12 @@ export function MainComponentContainer() {
 
 	useEffect(() => {
 		window.ipcRenderer.send("save-config-file", applicationConfig, defaultConfig.SETTINGS_PATH);
-		window.ipcRenderer.once('"save-config-file-success"', (event, data) => {
-			const {
-				directories: oldDirectories,
-				workingFile: oldWorkingFile,
-				...oldConfig
-			} = prevConfig.current;
-			const {
-				directories: newDirectories,
-				workingFile: newWorkingFile,
-				...newConfig
-			} = applicationConfig;
-
-			if (!_.isEqual(oldConfig, newConfig) || oldDirectories !== newDirectories) {
-				toast.custom(SuccessToast(data.message));
-			}
+		window.ipcRenderer.once("save-config-file-success", (event, data) => {
+			checkForSuccessToast({ prevConfig, applicationConfig, data });
 			prevConfig.current = applicationConfig;
 		});
 	}, [applicationConfig]);
+
 	return (
 		<div className="flex flex-col">
 			<TopNavbar
