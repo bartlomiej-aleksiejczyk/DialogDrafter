@@ -12,7 +12,7 @@ export function validateConfig({data}: validateConfigProps) {
     const schema = {
         "type": "object",
         "properties": {
-            "working-file": {"type": "string", "default": ""},
+            "workingFile": {"type": "string", "default": ""},
             "directories": {
                 "type": "object",
                 "default": {},
@@ -23,7 +23,7 @@ export function validateConfig({data}: validateConfigProps) {
             },
             "version": {"type": "number", "default": defaultConfig.CURRENT_VERSION}
         },
-        "required": ["working-file", "directories", "version"],
+        "required": ["workingFile", "directories", "version"],
         "additionalProperties": true
     };
     const validate = ajv.compile(schema)
