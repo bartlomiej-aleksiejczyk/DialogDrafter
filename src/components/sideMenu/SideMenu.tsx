@@ -3,8 +3,8 @@ import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigCont
 import { outputOnlyMdFiles } from "./outputOnlyMdFiles";
 import { DropdownPortal } from "./dropdownPortal/DropdownPortal";
 import { handleButtonClick } from "./dropdownPortal/handleButtonClick";
-import { RemoveDirectoryModal } from "./modals/RemoveDirectoryModal";
-import { RenameDirectoryModal } from "./modals/RenameDirectoryModal";
+import { RemoveDirectoryModal } from "../removeDirectoryModal/RemoveDirectoryModal";
+import { RenameDirectoryModal } from "../renameDirectoryModal/RenameDirectoryModal";
 import { isString } from "../../shared/utils/isString";
 import { DirectoryItem } from "./DirectoryItem";
 import { DropdownContent } from "./dropdownPortal/DropdownContent";
@@ -56,6 +56,7 @@ function SideMenu() {
 		if (!workingDirectory) return;
 		console.log("Effect running due to changes in: ", workingDirectory, applicationConfig);
 		window.ipcRenderer.send("load-filenames", workingDirectory);
+		// TODO: POTENTIAL MEMORY LEAK HERE filenames-data should not be recycled. Additionally it should be removed after component unmount.
 		window.ipcRenderer.once("filenames-data", handleFileData);
 	}, [workingDirectory, applicationConfig]);
 	const handleSelectDirectory = (directoryPath) => {
