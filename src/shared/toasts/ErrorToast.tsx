@@ -1,22 +1,26 @@
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
-export const ErrorToast = (t) => (
-    <div
-        className={`${
-            t.visible ? 'animate-enter' : 'animate-leave'
-        } max-w-md w-full pointer-events-auto alert alert-error`}
-    >
-        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-             fill="currentColor" viewBox="0 0 20 20">
-            <path
-                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
-        </svg>
-        <div>
-            <h3 className="font-bold">Error!</h3>
-            <div className="text-xs">{t}</div>
-        </div>
-        <button onClick={() => toast.remove(t.id)} className="btn btn-sm btn-outline">
-            Close
-        </button>
-    </div>
-)
+export const ErrorToast = (message) => (
+	<div
+		className={`${
+			message.visible ? "animate-enter" : "animate-leave"
+		} alert alert-error pointer-events-auto w-full max-w-md`}
+	>
+		<svg
+			className="h-6 w-6 text-gray-800 dark:text-white"
+			aria-hidden="true"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="currentColor"
+			viewBox="0 0 20 20"
+		>
+			<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+		</svg>
+		<div>
+			<h3 className="font-bold">Error!</h3>
+			<div className="text-xs">{message}</div>
+		</div>
+		<button onClick={() => toast.remove(message.id)} className="btn btn-outline btn-sm">
+			Close
+		</button>
+	</div>
+);
