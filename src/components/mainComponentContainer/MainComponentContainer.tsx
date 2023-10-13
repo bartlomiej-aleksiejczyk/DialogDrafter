@@ -9,20 +9,17 @@ import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigCont
 import { checkForSuccessToast } from "./checkForSuccessToast";
 
 export function MainComponentContainer() {
+	//TODO: Click outside context menu leave
+	//TODO: Enter to add message
+	//TODO: ESC to leave modal
+	//TODO: Freeze scrolls when modal
+
 	//TODO: Add handling for specific changes in config. For example "Added new directory" instead of "Config successfully changed"
 
 	// TODO: Check if transition App -> LoadInitialData -> SetInitialData -> [TopNavbar, SideMenu, ChatLogBoxContainer] is good idea
 
-	//TODO: Handle if directory path is wrong
-	// TODO: Handle if file is not set
-	// TODO: Check if working directory is available
-	// TODO: Check if working directory is in directory list
-	// TODO: Check if working file is available
-	// TODO: Check if working file is in working directory
 	// TODO: Error handling for I/O errors
 	// TODO: Examine accessing object key as string e.g., "object["key"]"
-
-	// TODO: Extract modals to one method
 
 	// TODO: Fix vanishing scrollbar when modal
 	const [isNewFileModalVisible, setIsNewFileModalVisible] = useState<boolean>(false);
