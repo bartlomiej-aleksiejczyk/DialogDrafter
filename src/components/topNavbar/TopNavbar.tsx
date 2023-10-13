@@ -11,7 +11,7 @@ export function TopNavbar({
 	const openAddDirectoryModal = () => setIsAddDirectoryModalVisible(true);
 
 	return (
-		<div className="navbar fixed z-50 flex justify-between bg-base-300 font-medium">
+		<div className="navbar fixed z-40 flex justify-between bg-base-300 font-medium">
 			<div className="flex space-x-8 pl-4">
 				<div>
 					<span className="text-3xl font-bold">DialogDrafter</span>
