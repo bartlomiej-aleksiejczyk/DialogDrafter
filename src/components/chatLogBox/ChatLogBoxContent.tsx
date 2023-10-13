@@ -2,10 +2,9 @@ import { shortenText } from "./utils/shortenText";
 import { useContext, useState } from "react";
 import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigContext";
 import { chatLogToMarkdown } from "./utils/chatToMarkdown";
-import { getFilenameFromPath } from "../../shared/utils/getFilenameFromPath";
+import { getFilenameFromPath } from "../../shared/utils/path/getFilenameFromPath";
 
 // TODO: Make single question/answer editable
-
 // TODO: Check what will happen when process crashes during write "Changes are written to disk atomically, so if the process crashes during a write, it will not corrupt the existing config."
 
 export const ChatLogBoxContent = ({ filecontent, setFileContent }) => {
@@ -14,27 +13,27 @@ export const ChatLogBoxContent = ({ filecontent, setFileContent }) => {
 	const [showError, setShowError] = useState(false);
 	const { applicationConfig } = useContext(ApplicationConfigContext);
 
-	const handleAddPair = async () => {
-		if (newQuestion.trim() && newAnswer.trim()) {
-			const newFileContent = [...filecontent, { question: newQuestion, answer: newAnswer }];
-			await setFileContent(newFileContent);
-			setNewQuestion("");
-			setNewAnswer("");
-			setShowError(false);
+	const handleAddPair = () => {
+		if (!newQuestion.trim() || !newAnswer.trim()) return setShowError(true);
 
-			window.ipcRenderer.send(
-				"save-working-file",
-				chatLogToMarkdown(newFileContent),
-				applicationConfig["workingFile"],
-			);
-			window.ipcRenderer.once("save-working-file-success", (event, data) => {
-				console.log(data.message);
-			});
-		} else {
-			setShowError(true);
-		}
+		const newFileContent = [...filecontent, { question: newQuestion, answer: newAnswer }];
+		setFileContent(newFileContent);
+		setNewQuestion("");
+		setNewAnswer("");
+		setShowError(false);
+
+		window.ipcRenderer.send(
+			"save-working-file",
+			chatLogToMarkdown(newFileContent),
+			applicationConfig["workingFile"],
+		);
+		window.ipcRenderer.once("save-working-file-success", (event, data) => {
+			console.log(data.message);
+		});
 	};
+
 	const fileDisplayName = getFilenameFromPath(shortenText(applicationConfig["workingFile"], 70));
+
 	return (
 		<div className="my-4 space-y-6 rounded-lg bg-neutral p-4 text-white shadow-lg">
 			<span className="p-4 text-3xl font-bold ">{fileDisplayName}</span>
@@ -91,6 +90,7 @@ export const ChatLogBoxContent = ({ filecontent, setFileContent }) => {
 				)}
 				<button
 					onClick={handleAddPair}
+					type="submit"
 					className="mt-2 rounded bg-green-500 px-4 py-2 text-white shadow-md transition duration-200 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
 				>
 					Add Pair
