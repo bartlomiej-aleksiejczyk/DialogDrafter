@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { SetInitialData } from "./SetInitialData";
 import { defaultConfig } from "../../shared/config/defaultConfig";
-import { getPathUntilLastSlash } from "../../shared/utils/getPathUntilLastSlash";
+import { getPathUntilLastSlash } from "../../shared/utils/path/getPathUntilLastSlash";
 import { GenericErrorHandler } from "../ErrorHandler/GenericErrorHandler";
 import { toast } from "react-hot-toast";
 import { ErrorToast } from "../../shared/toasts/ErrorToast";
 import { validateConfig } from "../../shared/validators/validateConfig";
+import { CONFIG_LOADING_ERROR_MESSAGE } from "./errorMessages";
 
 export function LoadInitialData() {
 	// TODO: Add modal with information about config error and give user choice to exit app or create new config file
-	// TODO: Fix error when file is for example empty
 	const [applicationConfig, setApplicationConfig] = useState<Record<string, unknown>>();
 	const [workingDirectory, setWorkingDirectory] = useState<string>();
 	const [userPlatform, setUserPlatform] = useState<string>();
@@ -34,10 +34,7 @@ export function LoadInitialData() {
 				setWorkingDirectory("");
 			}
 		} catch (e) {
-			handleConfigError(
-				_event,
-				"An error occurred loading the config file. Config was reset to default.",
-			);
+			handleConfigError(_event, CONFIG_LOADING_ERROR_MESSAGE);
 		}
 	};
 	const handleSendPlatform = (event, platform) => {
