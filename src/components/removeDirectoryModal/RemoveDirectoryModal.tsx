@@ -28,7 +28,7 @@ export const RemoveDirectoryModal = ({
 		<ModalWrapper modalName={"Confirmation"}>
 			<p className="pb-4 pb-4 text-base">{removeConfirmMessageMaker(directoryToRemove)}</p>
 			<div className="modal-action justify-start space-x-5">
-				<button className="btn btn-secondary" onClick={handleConfirm}>
+				<button className="btn btn-primary" onClick={handleConfirm}>
 					Confirm
 				</button>
 				<button className="btn btn-outline" onClick={handleClose}>
