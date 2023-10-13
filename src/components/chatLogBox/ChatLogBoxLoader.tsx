@@ -4,13 +4,11 @@ import { useContext, useEffect, useState } from "react";
 import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigContext";
 import { toast } from "react-hot-toast";
 import { ErrorToast } from "../../shared/toasts/ErrorToast";
+import { QAPair } from "./interfaces/QAPair";
 
 export function ChatLogBoxLoader() {
-	const [fileContent, setFileContent] = useState<string[] | null>(null);
+	const [fileContent, setFileContent] = useState<QAPair[]>(null);
 	const { applicationConfig, setApplicationConfig } = useContext(ApplicationConfigContext);
-	// TODO: handle errors hen loading non-existent file
-	// TODO: validate if markdown file has good format
-
 	const handleFileData = (_event, data) => {
 		setFileContent(markdownToChatLogParser(data));
 	};

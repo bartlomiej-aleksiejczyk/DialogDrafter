@@ -4,12 +4,12 @@ import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigCont
 import { maxFilenameLength, validFilenameRegex } from "../../shared/validators/validators";
 import { errorMessages } from "./errorMessages";
 import { GenericModalProps } from "../../shared/interfaces/GenericModalProps";
+import { ModalWrapper } from "../../shared/elements/ModalWrapper";
 
 type DirectoryInput = {
 	directoryName: string;
 };
 
-// TODO: Change size of filepath error message
 export function AddDirectoryModal({ setIsModalVisible }: GenericModalProps) {
 	const [selectedDirectory, setSelectedDirectory] = useState("");
 
@@ -75,69 +75,63 @@ export function AddDirectoryModal({ setIsModalVisible }: GenericModalProps) {
 	}, []);
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center overscroll-contain bg-black bg-opacity-50">
-			<div className="p-8">
-				<div className="modal-box">
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<input
-							{...register("directoryName", {
-								required: errorMessages.directoryName.required,
-								pattern: {
-									value: validFilenameRegex,
-									message: errorMessages.directoryName.pattern,
-								},
-								maxLength: {
-									value: maxFilenameLength,
-									message: errorMessages.directoryName.maxLength,
-								},
-								validate: {
-									isNameAvailable: (value) =>
-										isDirectoryNameAvailable(value) ||
-										errorMessages.directoryName.isNameAvailable,
-								},
-							})}
-							className="input input-bordered w-full max-w-xs"
-							placeholder="Directory name"
-						/>
-						{errors.directoryName && (
-							<label className="label">
-								<span className="label-text-alt">
-									<span className="text-warning">
-										{errors.directoryName.message}
-									</span>
-								</span>
-							</label>
-						)}
-						<button
-							type="button"
-							className="btn btn-primary mt-4"
-							onClick={openDirectoryPicker}
-						>
-							Select Directory
-						</button>
+		<ModalWrapper modalName={"Add New Directory"}>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<input
+					{...register("directoryName", {
+						required: errorMessages.directoryName.required,
+						pattern: {
+							value: validFilenameRegex,
+							message: errorMessages.directoryName.pattern,
+						},
+						maxLength: {
+							value: maxFilenameLength,
+							message: errorMessages.directoryName.maxLength,
+						},
+						validate: {
+							isNameAvailable: (value) =>
+								isDirectoryNameAvailable(value) ||
+								errorMessages.directoryName.isNameAvailable,
+						},
+					})}
+					className="input input-bordered w-full max-w-xs"
+					placeholder="Directory name"
+				/>
+				{errors.directoryName && (
+					<label className="label">
+						<span className="label-text-alt">
+							<p className=" text-warning">{errors.directoryName.message}</p>
+						</span>
+					</label>
+				)}
+				<button type="button" className="btn mt-4 w-40" onClick={openDirectoryPicker}>
+					Select Directory
+				</button>
 
-						<p className="mt-4">
-							Selected Directory: <strong>{selectedDirectory}</strong>
-						</p>
-						{errors.selectedDirectory && (
-							<p className="text-warning">{errors.selectedDirectory.message}</p>
-						)}
+				<p className="mt-4">
+					Selected Directory: <strong>{selectedDirectory}</strong>
+				</p>
+				{errors.selectedDirectory && (
+					<label className="label">
+						<span className="label-text-alt">
+							<span className="text-warning">{errors.selectedDirectory.message}</span>
+						</span>
+					</label>
+				)}
 
-						<div className="modal-action mt-4">
-							<button className="btn" type="submit">
-								Add Directory
-							</button>
-							<button
-								className="btn"
-								type="button"
-								onClick={() => setIsModalVisible(false)}
-							>
-								Close
-							</button>
-						</div>
-					</form>
+				<div className="modal-action modal-action mt-4 justify-end space-x-5">
+					<button className="btn btn-primary w-40" type="submit">
+						Add Directory
+					</button>
+					<button
+						className="btn btn-outline"
+						type="button"
+						onClick={() => setIsModalVisible(false)}
+					>
+						Close
+					</button>
 				</div>
-			</div>
-		</div>
+			</form>
+		</ModalWrapper>
 	);
 }
