@@ -14,8 +14,6 @@ type NewFileInput = {
 	fileName: string;
 };
 
-// TODO: Fix filename change of size when error occurred
-// TODO: Alter primary button color
 export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
 	const { platform, applicationConfig, setApplicationConfig, workingDirectory } =
 		useContext(ApplicationConfigContext);

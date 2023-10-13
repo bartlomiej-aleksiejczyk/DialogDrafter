@@ -1,6 +1,5 @@
 export const handleButtonClick = (e, key, setPosition, setVisibleDropdown) => {
 	e.preventDefault();
-	// TODO: dropdownHeight and width might be unresponsive despite working good
 	const rect = e.currentTarget.getBoundingClientRect();
 	const dropdownHeight = 95;
 	const dropdownWidth = 80;

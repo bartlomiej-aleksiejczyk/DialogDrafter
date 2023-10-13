@@ -18,8 +18,6 @@ export function SetInitialData({
 	setWorkingDirectory,
 	userPlatform,
 }: SetInitialDataProps) {
-	// TODO: add option to restore/add default config in case of broken file
-
 	validateInitialData({ data: applicationConfig, setInitialData: setApplicationConfig });
 	return (
 		<ApplicationConfigContext.Provider

@@ -9,7 +9,6 @@ import { validateConfig } from "../../shared/validators/validateConfig";
 import { CONFIG_LOADING_ERROR_MESSAGE } from "./errorMessages";
 
 export function LoadInitialData() {
-	// TODO: Add modal with information about config error and give user choice to exit app or create new config file
 	const [applicationConfig, setApplicationConfig] = useState<Record<string, unknown>>();
 	const [workingDirectory, setWorkingDirectory] = useState<string>();
 	const [userPlatform, setUserPlatform] = useState<string>();

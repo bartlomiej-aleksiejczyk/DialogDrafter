@@ -4,7 +4,6 @@ import { ErrorToast } from "../../shared/toasts/ErrorToast";
 import { validateConfig, validateConfigProps } from "../../shared/validators/validateConfig";
 import { CONFIG_PARSING_ERROR_MESSAGE } from "./errorMessages";
 
-// TODO: Add migration mechanism
 interface validateInitialDataProps extends validateConfigProps {
 	setInitialData: (data: Record<string, unknown>) => void;
 }

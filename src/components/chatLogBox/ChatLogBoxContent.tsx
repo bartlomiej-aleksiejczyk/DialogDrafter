@@ -4,9 +4,6 @@ import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigCont
 import { chatLogToMarkdown } from "./utils/chatToMarkdown";
 import { getFilenameFromPath } from "../../shared/utils/path/getFilenameFromPath";
 
-// TODO: Make single question/answer editable
-// TODO: Check what will happen when process crashes during write "Changes are written to disk atomically, so if the process crashes during a write, it will not corrupt the existing config."
-
 export const ChatLogBoxContent = ({ filecontent, setFileContent }) => {
 	const [newQuestion, setNewQuestion] = useState("");
 	const [newAnswer, setNewAnswer] = useState("");

@@ -15,7 +15,6 @@ const MODALS = {
 };
 
 function SideMenu() {
-	// TODO: Add remove/rename file feature
 	const { applicationConfig, workingDirectory, setWorkingDirectory } =
 		useContext(ApplicationConfigContext);
 	const directoryToChange = useRef<string | null>(null);
@@ -56,7 +55,6 @@ function SideMenu() {
 		if (!workingDirectory) return;
 		console.log("Effect running due to changes in: ", workingDirectory, applicationConfig);
 		window.ipcRenderer.send("load-filenames", workingDirectory);
-		// TODO: POTENTIAL MEMORY LEAK HERE filenames-data should not be recycled. Additionally it should be removed after component unmount.
 		window.ipcRenderer.once("filenames-data", handleFileData);
 	}, [workingDirectory, applicationConfig]);
 	const handleSelectDirectory = (directoryPath) => {
