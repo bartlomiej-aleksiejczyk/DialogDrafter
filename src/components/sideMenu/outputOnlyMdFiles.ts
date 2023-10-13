@@ -4,5 +4,7 @@ export function outputOnlyMdFiles(filesObject: {
 }): string[] {
 	const filenames = Object.values(filesObject);
 
-	return filenames.filter((filename) => typeof filename === "string" && filename.endsWith(".md"));
+	return filenames
+		.filter((filename) => typeof filename === "string" && filename.endsWith(".md"))
+		.sort();
 }
