@@ -33,8 +33,6 @@ ipcMain.on("save-chat-log", (event, data, saveFilePath) => {
 		if (err) {
 			console.error("An error occurred writing the file:", err);
 			event.sender.send("error", "An error occurred saving the chat log.");
-		} else {
-			console.log("Data saved");
 		}
 	});
 });
@@ -131,7 +129,7 @@ ipcMain.on("open-directory-picker", (event) => {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 		});
 });
 

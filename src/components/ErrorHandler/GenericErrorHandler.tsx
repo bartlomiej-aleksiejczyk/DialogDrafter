@@ -4,7 +4,7 @@ import {ErrorToast} from "../../shared/toasts/ErrorToast";
 
 export function GenericErrorHandler() {
     const handleNewFileData = (_event, data) => {
-        console.log(`error` + data)
+        console.error(data)
         toast.custom(ErrorToast(data));
     }
     useEffect(() => {

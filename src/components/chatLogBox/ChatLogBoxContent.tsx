@@ -24,9 +24,7 @@ export const ChatLogBoxContent = ({ filecontent, setFileContent }) => {
 			chatLogToMarkdown(newFileContent),
 			applicationConfig["workingFile"],
 		);
-		window.ipcRenderer.once("save-working-file-success", (event, data) => {
-			console.log(data.message);
-		});
+		window.ipcRenderer.once("save-working-file-success", () => {});
 	};
 
 	const fileDisplayName = getFilenameFromPath(shortenText(applicationConfig["workingFile"], 70));

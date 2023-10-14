@@ -3,7 +3,6 @@ import { SuccessToast } from "../../shared/toasts/SuccessToast";
 
 export const useFileManagement = (applicationConfig, setApplicationConfig) => {
 	const handleNewFileData = (_event, data) => {
-		console.log(data);
 		setApplicationConfig({
 			...applicationConfig,
 			workingFile: data.newFilePath,
