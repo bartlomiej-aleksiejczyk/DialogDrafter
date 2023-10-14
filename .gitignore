@@ -26,4 +26,4 @@ release
 *.sw?
 
 # Config file
-dialogDrafterSettings.json
+./dialogDrafterSettings.json
