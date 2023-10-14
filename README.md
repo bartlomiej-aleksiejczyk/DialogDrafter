@@ -1,6 +1,10 @@
 # DialogDrafter
 DialogDrafter is a standalone Electron app that streamlines the creation of chat logs through a user-friendly interface. It allows you to easily save and design dialogues for various purposes, such as games, chatbots, or stories.
+
+### DialogDrafter in action:
+
 ![demonstration-01.png](design-docs%2Fscreenshots%2Fdemonstration-01.png?raw=true "Sample screen")
+
 ## Features
 * Create and edit chat logs for various purposes.
 * Choose multiple directories.
