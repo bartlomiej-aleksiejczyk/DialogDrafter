@@ -4,13 +4,7 @@ import "./index.css";
 import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+	<App />
 );
 
 postMessage({ payload: "removeLoading" }, "*");
-
-window.ipcRenderer.on("main-process-message", (_event, message) => {
-	console.log(message);
-});
