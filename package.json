@@ -1,7 +1,8 @@
 {
   "name": "dialogdrafter",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "description": "Standalone Electron app that streamlines the creation of chat logs through a user-friendly interface. ",
   "homepage": "https://github.com/bartlomiej-aleksiejczyk/DialogDrafter#readme",
   "author": "Bartłomiej Aleksiejczyk",
   "license": "MIT",
@@ -45,6 +46,48 @@
     "vite": "^4.4.9",
     "vite-plugin-electron": "^0.14.0",
     "vite-plugin-electron-renderer": "^0.14.5"
+  },
+  "build": {
+    "productName": "DialogDrafter",
+    "directories": {
+      "buildResources": "build",
+      "output": "electronOutput"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "win": {
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "icon": "build/icon.png",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility"
+    },
+    "files": [
+      "!*.*",
+      "!**/*",
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "./bundleRootDirContent",
+        "to": "./",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
   },
   "main": "dist-electron/main.js",
   "postinstall": "electron-builder install-app-deps"
