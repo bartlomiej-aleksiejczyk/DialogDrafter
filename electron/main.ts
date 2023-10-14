@@ -139,8 +139,4 @@ app.on("activate", () => {
 	}
 });
 
-//Debug
-console.log(ipcMain.listenerCount("filenames-data"));
-console.log(ipcMain.listeners("filenames-data"));
-
 app.whenReady().then(createWindow);
