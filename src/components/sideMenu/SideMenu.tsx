@@ -53,7 +53,6 @@ function SideMenu() {
 	useEffect(() => {
 		setDirectoryContent([]);
 		if (!workingDirectory) return;
-		console.log("Effect running due to changes in: ", workingDirectory, applicationConfig);
 		window.ipcRenderer.send("load-filenames", workingDirectory);
 		window.ipcRenderer.once("filenames-data", handleFileData);
 	}, [workingDirectory, applicationConfig]);

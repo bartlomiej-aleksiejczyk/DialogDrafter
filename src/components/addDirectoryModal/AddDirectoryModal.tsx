@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigContext";
-import { maxFilenameLength, validFilenameRegex } from "../../shared/validators/validators";
-import { errorMessages } from "./errorMessages";
-import { GenericModalProps } from "../../shared/interfaces/GenericModalProps";
-import { ModalWrapper } from "../../shared/elements/ModalWrapper";
+import {useContext, useEffect, useState} from "react";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {ApplicationConfigContext} from "../initialConfig/ApplicationConfigContext";
+import {maxFilenameLength, validFilenameRegex} from "../../shared/validators/validators";
+import {errorMessages} from "./errorMessages";
+import {GenericModalProps} from "../../shared/interfaces/GenericModalProps";
+import {ModalWrapper} from "../../shared/elements/ModalWrapper";
 
 type DirectoryInput = {
 	directoryName: string;
@@ -27,9 +27,7 @@ export function AddDirectoryModal({ setIsModalVisible }: GenericModalProps) {
 	const isDirectoryNameAvailable = (directoryName: string) =>
 		!Object.keys(directories).includes(directoryName);
 	const isDirectoryPathAvailable = (directoryPath: string) => {
-		const isPathAvailable = !Object.values(directories).includes(directoryPath);
-		console.log(isPathAvailable);
-		return isPathAvailable;
+		return !Object.values(directories).includes(directoryPath);
 	};
 
 	useEffect(() => {
@@ -44,7 +42,6 @@ export function AddDirectoryModal({ setIsModalVisible }: GenericModalProps) {
 	}, [register]);
 
 	const onSubmit: SubmitHandler<DirectoryInput> = (data) => {
-		console.log(data);
 		const newDirectories = {
 			...directories,
 			[data.directoryName]: getValues("selectedDirectory"),
@@ -61,8 +58,6 @@ export function AddDirectoryModal({ setIsModalVisible }: GenericModalProps) {
 	};
 
 	const handleDirectoryPicked = (_event: any, response: Record<string, string>) => {
-		console.log("Selected Directory:", response);
-
 		setSelectedDirectory(response.path);
 		setValue("selectedDirectory", response.path);
 	};
