@@ -9,23 +9,11 @@ DialogDrafter is a standalone Electron app designed to simplify the creation of 
 - **Create and Edit Chat Logs:** Craft dialogues conveniently.
 - **Directory Management:** Opt for multiple directories.
 - **Importing:** Bring in existing chat logs from various sources.
-## How to run using wizard for Windows (from release)
-* Navigate to "Releases" and download the file appropriate for Windows.
-* Install the app using the wizard.
-* Execute the app by running "DialogDrafter".
-## Building from Source
-
-1. Open the command line and navigate (`cd`) to your desired directory.
-2. Execute the following commands sequentially:
-
-   ```shell
-   npx vite build
-   npm run dist
-   ```
-
-3. The built files will be located in the "electronOutput" directory.
-
-## How to run development version
+## How to run using wizard for Windows or Linux (Using Release)
+1. Navigate to "Releases" and download the file appropriate for your OS.
+2. Install the app using the wizard.
+3. Execute the app by running "DialogDrafter".
+## How to run and build development version
 ### Prerequisites
 
 - Git (Installed and configured in PATH)
@@ -41,6 +29,19 @@ cd DialogDrafter
 npm install
 npm run dev
 ```
+### Building from Source
+
+1. Open the command line and navigate (`cd`) to your source directory.
+2. Execute the following commands sequentially:
+
+```shell
+npm install
+npx vite build
+npm run dist
+```
+
+3. The built files will be located in the "electronOutput" directory.
+
 ## Usage Guide
 
 1. **Add Directory:** Click on "Add Directory" and select a directory.
