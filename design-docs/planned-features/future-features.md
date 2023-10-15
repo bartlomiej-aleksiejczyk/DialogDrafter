@@ -29,12 +29,13 @@
 
 ## Robustness
 
-1. Check what will happen when process crashes during write "Changes are written to disk atomically, so if the process
+1. Separate app version and json scheme version for application config as current state may be confusing.
+2. Check what will happen when process crashes during write "Changes are written to disk atomically, so if the process
    crashes during write, it will not corrupt the existing config."
-2. Channel filenames-data should not be recycled it must be used in only one place. Additionally, it should be removed
+3. Channel filenames-data should not be recycled it must be used in only one place. Additionally, it should be removed
    after component unmount.
-3. Fix Context Bridge, as sharing entire ipcRenderer it is a security
+4. Fix Context Bridge, as sharing entire ipcRenderer it is a security
    vulnerability [source](https://stackoverflow.com/questions/66913598/ipcrenderer-on-is-not-a-function).
-4. Change app architecture
+5. Change app architecture
     1. Destruct applicationConfig to atomic values not nested object.
     2. Handle change of application state (file saving, config alteration, loading data, error) by flags or by treating app as finite state machine using XEvent library(most preferably).
