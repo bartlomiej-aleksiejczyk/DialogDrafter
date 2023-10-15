@@ -15,7 +15,7 @@ function createWindow() {
 			preload: path.join(__dirname, "preload.js"),
 		},
 	});
-
+	win.setMenuBarVisibility(false)
 	win.webContents.on("did-finish-load", () => {
 		win?.webContents.send("main-process-message", new Date().toLocaleString());
 	});
