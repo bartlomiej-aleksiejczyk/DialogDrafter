@@ -4,20 +4,23 @@
 
 ## User Experience
 
-1. Working file
+1. Linux version
+   1. Solve no icon problem in Linux version
+   2. Solve no dialogDrafterSettings.json file when first install
+2. Working file
     1. Make single question/answer editable.
     2. Enter to add message.
-2. Click outside context menu leave.
-3. Configuration files
+3. Click outside context menu leave.
+4. Configuration files
     1. Add modal with information about config error and give user choice to exit app or create new config file.
     2. Add option to restore/add default config in case of broken file.
     3. Add migration mechanism.
     4. Add handling for specific changes in config. For example "Added new directory" instead of "Config successfully.
        changed".
-4. Press ESC to leave modal.
-5. Freeze scrolls when modal.
-6. Fix vanishing scrollbar when modal.
-7. DropdownHeight and width of sideMenu context menu might be unresponsive despite working good.
+5. Press ESC to leave modal.
+6. Freeze scrolls when modal.
+7. Fix vanishing scrollbar when modal.
+8. DropdownHeight and width of sideMenu context menu might be unresponsive despite working good.
 
 ---
 
