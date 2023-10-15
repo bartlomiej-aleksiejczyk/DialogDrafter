@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Standalone Electron app that streamlines the creation of chat logs through a user-friendly interface. ",
   "homepage": "https://github.com/bartlomiej-aleksiejczyk/DialogDrafter#readme",
-  "author": "Bartłomiej Aleksiejczyk",
+  "author": "Bartłomiej Aleksiejczyk <bartlomiej.aleksiejczyk@gmail.com>",
   "license": "MIT",
   "scripts": {
     "pack": "electron-builder --dir",
