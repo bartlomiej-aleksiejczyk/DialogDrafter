@@ -16,7 +16,7 @@ export function MainComponentContainer() {
 
 	useEffect(() => {
 		window.ipcRenderer.send("save-config-file", applicationConfig, defaultConfig.SETTINGS_PATH);
-		window.ipcRenderer.once("save-config-file-success", (event, data) => {
+		window.ipcRenderer.once("save-config-file-success", (_event, data) => {
 			checkForSuccessToast({ prevConfig, applicationConfig, data });
 			prevConfig.current = applicationConfig;
 		});
