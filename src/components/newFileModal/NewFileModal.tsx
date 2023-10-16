@@ -86,7 +86,6 @@ export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
 					value={PICK_DESTINATION_INFO}
 				>
 					<option disabled>{PICK_DESTINATION_INFO}</option>
-					<option key={""}></option>
 					{Object.entries(applicationConfig["directories"]).map(
 						([key, value]) =>
 							isString(value) && (
