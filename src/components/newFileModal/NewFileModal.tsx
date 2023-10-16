@@ -81,7 +81,7 @@ export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
 					</label>
 				)}
 				<select
-					className="select mt-2 w-full max-w-xs"
+					className="select select-bordered mt-2 w-full max-w-xs"
 					onChange={handleDirectoryChange}
 					value={PICK_DESTINATION_INFO}
 				>
