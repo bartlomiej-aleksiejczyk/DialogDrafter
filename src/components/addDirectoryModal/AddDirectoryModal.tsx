@@ -114,7 +114,7 @@ export function AddDirectoryModal({ setIsModalVisible }: GenericModalProps) {
 					</label>
 				)}
 
-				<div className="modal-action modal-action mt-4 justify-end space-x-5">
+				<div className="modal-action mt-4 justify-end space-x-5">
 					<button className="btn btn-primary w-40" type="submit">
 						Add Directory
 					</button>
