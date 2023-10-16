@@ -9,8 +9,8 @@ import { useFileManagement } from "./useFileManagment";
 import { useDirectoryData } from "./useDirectoryData";
 import { ModalWrapper } from "../../shared/elements/ModalWrapper";
 import { newFileErrorMessages } from "./newFileErrorMessages";
-import {PICK_DESTINATION_INFO} from "../addDirectoryModal/addDirectoryModalValues.ts";
-import {isString} from "../../shared/utils/isString.ts";
+import { PICK_DESTINATION_INFO } from "../addDirectoryModal/addDirectoryModalValues.ts";
+import { isString } from "../../shared/utils/isString.ts";
 
 type NewFileInput = {
 	fileName: string;
@@ -87,12 +87,14 @@ export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
 				>
 					<option disabled>{PICK_DESTINATION_INFO}</option>
 					<option key={""}></option>
-					{Object.entries(applicationConfig["directories"]).map(([key, value]) => (
-						isString(value) &&
-						<option key={key} value={value}>
-							{key} {value}
-						</option>
-					))}
+					{Object.entries(applicationConfig["directories"]).map(
+						([key, value]) =>
+							isString(value) && (
+								<option key={key} value={value}>
+									{key} {value}
+								</option>
+							),
+					)}
 				</select>
 
 				<div className="modal-action justify-end space-x-5">
