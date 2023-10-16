@@ -9,16 +9,18 @@ import { useFileManagement } from "./useFileManagment";
 import { useDirectoryData } from "./useDirectoryData";
 import { ModalWrapper } from "../../shared/elements/ModalWrapper";
 import { newFileErrorMessages } from "./newFileErrorMessages";
+import {PICK_DESTINATION_INFO} from "../addDirectoryModal/addDirectoryModalValues.ts";
+import {isString} from "../../shared/utils/isString.ts";
 
 type NewFileInput = {
 	fileName: string;
 };
 
 export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
-	const { platform, applicationConfig, setApplicationConfig, workingDirectory } =
+	const { platform, applicationConfig, setApplicationConfig } =
 		useContext(ApplicationConfigContext);
 	const { createNewFile } = useFileManagement(applicationConfig, setApplicationConfig);
-	const [selectedDirectory, setSelectedDirectory] = useState<string>(workingDirectory);
+	const [selectedDirectory, setSelectedDirectory] = useState<string>("");
 	const { directoryContent, isDirectoryContentLoaded } = useDirectoryData(selectedDirectory);
 
 	const {
@@ -69,6 +71,7 @@ export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
 						},
 					})}
 					className="input input-bordered w-full max-w-xs"
+					placeholder="New file name"
 				/>
 				{errors.fileName && (
 					<label className="label">
@@ -80,13 +83,14 @@ export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
 				<select
 					className="select mt-2 w-full max-w-xs"
 					onChange={handleDirectoryChange}
-					value={selectedDirectory}
+					value={PICK_DESTINATION_INFO}
 				>
-					<option disabled>Pick your file destination</option>
+					<option disabled>{PICK_DESTINATION_INFO}</option>
 					<option key={""}></option>
 					{Object.entries(applicationConfig["directories"]).map(([key, value]) => (
-						<option key={key} value={value as string}>
-							{key} [{value}]
+						isString(value) &&
+						<option key={key} value={value}>
+							{key} {value}
 						</option>
 					))}
 				</select>
