@@ -63,7 +63,7 @@
       "allowToChangeInstallationDirectory": true
     },
     "win": {
-      "icon": "build/icon.ico"
+      "icon": "build/icon.png"
     },
     "mac": {
       "icon": "build/icon.png"
