@@ -3,9 +3,11 @@ DialogDrafter is a standalone Electron app designed to simplify the creation of 
 
 ### DialogDrafter in action:
 
-![demonstration-01.png](designDocs%2Fscreenshots%2Fdemonstration-01.png?raw=true "Sample screen")
+![demonstration-04.png](designDocs/screenshots/demonstration-04.png?raw=true "Sample screen #2")
+![demonstration-01.png](designDocs%2Fscreenshots%2Fdemonstration-01.png?raw=true "Sample screen #1")
 
 ## Features
+- **Display in original format:** Display dialogues in a beautiful way.
 - **Create and Edit Chat Logs:** Craft dialogues conveniently.
 - **Directory Management:** Opt for multiple directories.
 - **Importing:** Bring in existing chat logs from various sources.
