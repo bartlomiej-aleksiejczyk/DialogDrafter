@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2023-10-18
+
+### Fixed
+
+- Memory leaks by removing listeners.
+- Syntax highlight display after working file change.
+
+
 ## [0.2.0] - 2023-10-18
 
 ### Added
@@ -39,5 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - App icon.
 
 [unreleased]: https://github.com/bartlomiej-aleksiejczyk/DialogDrafter/tree/dev
+[0.2.1]: https://github.com/bartlomiej-aleksiejczyk/DialogDrafter/releases/tag/v0.2.1
 [0.2.0]: https://github.com/bartlomiej-aleksiejczyk/DialogDrafter/releases/tag/v0.2
 [0.1.0]: https://github.com/bartlomiej-aleksiejczyk/DialogDrafter/releases/tag/v0.1
