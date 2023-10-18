@@ -9,7 +9,7 @@ interface MarkdownPreviewProps {
 export function MarkdownPreview({ parsedMarkdown }: MarkdownPreviewProps) {
 	useEffect(() => {
 		hljs.highlightAll();
-	}, []);
+	}, [parsedMarkdown]);
 	return (
 		<>
 			<hr className="rounded-xl border-t-8 border-solid"/>
