@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Separators between questions and answers for better readability.
+
+### Fixed
+
+- Bug with not displaying directory name in New Chat modal
+
 ## [0.2.1] - 2023-10-18
 
 ### Fixed
