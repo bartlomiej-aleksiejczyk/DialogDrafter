@@ -83,7 +83,7 @@ export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
 				<select
 					className="select select-bordered mt-2 w-full max-w-xs"
 					onChange={handleDirectoryChange}
-					value={PICK_DESTINATION_INFO}
+					defaultValue={PICK_DESTINATION_INFO}
 				>
 					<option disabled>{PICK_DESTINATION_INFO}</option>
 					{Object.entries(applicationConfig["directories"]).map(
@@ -100,7 +100,9 @@ export function NewFileModal({ setIsModalVisible }: GenericModalProps) {
 					<button
 						className="btn btn-primary w-24"
 						type="submit"
-						disabled={!isDirectoryContentLoaded && !selectedDirectory}
+						disabled={
+							!isDirectoryContentLoaded && selectedDirectory !== PICK_DESTINATION_INFO
+						}
 					>
 						Submit
 					</button>
