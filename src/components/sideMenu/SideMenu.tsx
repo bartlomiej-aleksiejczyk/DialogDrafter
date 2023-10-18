@@ -55,6 +55,9 @@ function SideMenu() {
 		if (!workingDirectory) return;
 		window.ipcRenderer.send("load-filenames", workingDirectory);
 		window.ipcRenderer.once("filenames-data", handleFileData);
+		return () => {
+			window.ipcRenderer.removeAllListeners("filenames-data")
+		}
 	}, [workingDirectory, applicationConfig]);
 	const handleSelectDirectory = (directoryPath) => {
 		setWorkingDirectory(directoryPath);

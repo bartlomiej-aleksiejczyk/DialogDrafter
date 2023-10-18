@@ -32,6 +32,7 @@ export function ChatLogBoxLoader() {
 		return () => {
 			window.ipcRenderer.removeAllListeners("working-file");
 			window.ipcRenderer.removeAllListeners("send-platform");
+			window.ipcRenderer.removeAllListeners("working-file-error");
 		};
 	}, [applicationConfig]);
 
