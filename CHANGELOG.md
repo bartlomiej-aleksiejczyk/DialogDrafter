@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Desynchronization between preview and write mode after update.
 - Memory leaks by removing listeners.
 - Syntax highlight display after working file change.
 
