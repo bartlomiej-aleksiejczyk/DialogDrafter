@@ -9,8 +9,9 @@
 }
 
 .markdown-content h1 {
-    @apply text-3xl font-bold p-3;
+    @apply text-3xl font-bold p-3 border-t-4 border-base-100;
 }
+
 .markdown-content h2 {
     @apply text-2xl font-semibold p-2;
 }

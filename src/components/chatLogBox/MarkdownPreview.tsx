@@ -11,9 +11,6 @@ export function MarkdownPreview({ parsedMarkdown }: MarkdownPreviewProps) {
 		hljs.highlightAll();
 	}, [parsedMarkdown]);
 	return (
-		<>
-			<hr className="rounded-xl border-t-8 border-solid"/>
-			<div className="markdown-content" dangerouslySetInnerHTML={{ __html: parsedMarkdown }} />
-		</>
+		<div className="markdown-content" dangerouslySetInnerHTML={{ __html: parsedMarkdown }} />
 	);
 }
