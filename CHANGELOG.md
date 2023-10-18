@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Separators between questions and answers for better readability.
 
+### Changed
+
+- Markdown link appearance
+
 ### Fixed
 
 - Bug with not displaying directory name in New Chat modal
