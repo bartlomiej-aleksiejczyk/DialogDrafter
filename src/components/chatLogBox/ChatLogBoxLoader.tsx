@@ -5,14 +5,11 @@ import { ApplicationConfigContext } from "../initialConfig/ApplicationConfigCont
 import { toast } from "react-hot-toast";
 import { ErrorToast } from "../../shared/toasts/ErrorToast";
 import { QAPair } from "./interfaces/QAPair";
-import { markdownToHtml } from "./utils/markdownToHtml";
 
 export function ChatLogBoxLoader() {
 	const [fileContent, setFileContent] = useState<QAPair[]>(null);
-	const [parsedMarkdown, setParsedMarkdown] = useState<string>("");
 	const { applicationConfig, setApplicationConfig } = useContext(ApplicationConfigContext);
 	const handleFileData = (_event, data) => {
-		setParsedMarkdown(markdownToHtml(data))
 		setFileContent(markdownToChatLogParser(data));
 	};
 	const handleFileError = (_event, data) => {
@@ -39,7 +36,7 @@ export function ChatLogBoxLoader() {
 	return (
 		<div className="lg:w[50vw] lg:h[25vh] flex grow flex-col justify-center md:h-full md:w-full">
 			{fileContent ? (
-				<ChatLogBoxContent filecontent={fileContent} setFileContent={setFileContent} parsedMarkdown={parsedMarkdown}/>
+				<ChatLogBoxContent filecontent={fileContent} setFileContent={setFileContent} />
 			) : (
 				<div className="text-center">
 					<p className="mb-4 text-lg font-bold md:text-xl lg:text-3xl">

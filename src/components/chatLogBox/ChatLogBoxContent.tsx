@@ -5,18 +5,14 @@ import { chatLogToMarkdown } from "./utils/chatToMarkdown";
 import { getFilenameFromPath } from "../../shared/utils/path/getFilenameFromPath";
 import { QAPair } from "./interfaces/QAPair";
 import { MarkdownPreview } from "./MarkdownPreview";
+import { markdownToHtml } from "./utils/markdownToHtml";
 
 interface ChatLogBoxContent {
 	filecontent: QAPair[];
 	setFileContent: (QAPair) => void;
-	parsedMarkdown: ReactNode;
 }
 
-export const ChatLogBoxContent = ({
-	filecontent,
-	setFileContent,
-	parsedMarkdown,
-}: ChatLogBoxContent) => {
+export const ChatLogBoxContent = ({ filecontent, setFileContent }: ChatLogBoxContent) => {
 	const [newQuestion, setNewQuestion] = useState("");
 	const [newAnswer, setNewAnswer] = useState("");
 	const [isPreviewToggled, setIsPreviewToggled] = useState(false);
@@ -43,25 +39,53 @@ export const ChatLogBoxContent = ({
 	const fileDisplayName = getFilenameFromPath(shortenText(applicationConfig["workingFile"], 70));
 
 	const togglePreview = () => {
-		setIsPreviewToggled(!isPreviewToggled)
+		setIsPreviewToggled(!isPreviewToggled);
 	};
 
 	return (
 		<div className="my-4 space-y-6 rounded-lg bg-neutral p-4 text-white shadow-lg">
 			<div className="flex flex-row justify-between">
-					<p className="p-4 text-3xl font-bold ">{fileDisplayName}</p>
+				<p className="p-4 text-3xl font-bold ">{fileDisplayName}</p>
 				<div className="p-3">
-				<label onClick={togglePreview} className="btn btn-outline">
-					<svg className={`w-6 h-6 ${isPreviewToggled && "hidden"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-						<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17v1a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2M6 1v4a1 1 0 0 1-1 1H1m13.14.772 2.745 2.746M18.1 5.612a2.086 2.086 0 0 1 0 2.953l-6.65 6.646-3.693.739.739-3.692 6.646-6.646a2.087 2.087 0 0 1 2.958 0Z"/>
-					</svg>
-					<svg className={`w-6 h-6 ${!isPreviewToggled && "hidden"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-						<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 16.5c0-1-8-2.7-9-2V1.8c1-1 9 .707 9 1.706M10 16.5V3.506M10 16.5c0-1 8-2.7 9-2V1.8c-1-1-9 .707-9 1.706" />					</svg>
-				</label>
+					<label onClick={togglePreview} className="btn btn-outline">
+						<svg
+							className={`h-6 w-6 ${isPreviewToggled && "hidden"}`}
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 20 20"
+						>
+							<path
+								stroke="currentColor"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M15 17v1a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2M6 1v4a1 1 0 0 1-1 1H1m13.14.772 2.745 2.746M18.1 5.612a2.086 2.086 0 0 1 0 2.953l-6.65 6.646-3.693.739.739-3.692 6.646-6.646a2.087 2.087 0 0 1 2.958 0Z"
+							/>
+						</svg>
+						<svg
+							className={`h-6 w-6 ${!isPreviewToggled && "hidden"}`}
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 20 18"
+						>
+							<path
+								stroke="currentColor"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M10 16.5c0-1-8-2.7-9-2V1.8c1-1 9 .707 9 1.706M10 16.5V3.506M10 16.5c0-1 8-2.7 9-2V1.8c-1-1-9 .707-9 1.706"
+							/>{" "}
+						</svg>
+					</label>
 				</div>
 			</div>
 			{isPreviewToggled ? (
-				<MarkdownPreview className="w-full" parsedMarkdown={parsedMarkdown} />
+				<MarkdownPreview
+					className="w-full"
+					parsedMarkdown={markdownToHtml(chatLogToMarkdown(filecontent))}
+				/>
 			) : (
 				<>
 					{filecontent.map((qaPair, index) => (
